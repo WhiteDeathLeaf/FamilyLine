@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FamilyLine</string>
+    <string name="register">注册</string>
+    <string name="register_soon">立即注册</string>
+    <string name="login">登录</string>
+    <string name="login_soon">立即登录</string>
+    <string name="input_username">请输入用户名</string>
+    <string name="input_password">请输入密码（至少6位）</string>
+    <string name="input_password_sure">请确认密码</string>
+    <string name="input_email">请输入邮箱</string>
+    <string name="password_rules">密码格式不正确</string>
+    <string name="username_rules">用户名格式不正确</string>
+    <string name="email_rules">邮箱格式不正确</string>
+    <string name="equal_pwd">两次输入的密码不同</string>
+</resources>

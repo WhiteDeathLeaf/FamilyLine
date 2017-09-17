@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context="com.galaxy_light.gzh.familyline.ui.activity.RegisterActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_register"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@color/white">
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/tet_register_username"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/bg_edit_stroke"
+            android:gravity="center_vertical"
+            android:hint="@string/input_username"
+            android:paddingLeft="@dimen/dp_10" />
+
+        <EditText
+            android:id="@+id/tet_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/bg_edit_stroke"
+            android:gravity="center_vertical"
+            android:hint="@string/input_password"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/dp_10" />
+        <EditText
+            android:id="@+id/tet_register_password_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/bg_edit_stroke"
+            android:gravity="center_vertical"
+            android:hint="@string/input_password_sure"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/dp_10" />
+        <EditText
+            android:id="@+id/tet_register_email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/bg_edit_stroke"
+            android:gravity="center_vertical"
+            android:hint="@string/input_email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="@dimen/dp_10" />
+
+        <Button
+            android:id="@+id/btn_register_soon"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/register_soon"
+            android:textSize="@dimen/sp_16"
+            android:enabled="false"/>
+    </LinearLayout>
+</RelativeLayout>
