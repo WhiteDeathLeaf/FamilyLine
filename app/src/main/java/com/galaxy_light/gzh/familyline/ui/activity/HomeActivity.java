@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.galaxy_light.gzh.familyline.R;
 
 import butterknife.BindView;
@@ -54,10 +55,29 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initBottomNavigation() {
-
+        bottomNavigation.addItem(new BottomNavigationItem(R.drawable.home_message, R.string.message))
+                .addItem(new BottomNavigationItem(R.drawable.home_contact, R.string.contact))
+                .addItem(new BottomNavigationItem(R.drawable.home_dynamic, R.string.dynamic))
+                .addItem(new BottomNavigationItem(R.drawable.home_mine, R.string.mine))
+                .initialise();
     }
 
     private void initListener() {
+        bottomNavigation.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int position) {
 
+            }
+
+            @Override
+            public void onTabUnselected(int position) {
+
+            }
+
+            @Override
+            public void onTabReselected(int position) {
+
+            }
+        });
     }
 }
