@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.ui.presenter.LoginPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.LoginView;
 import com.galaxy_light.gzh.familyline.utils.RegexUtil;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private String username;
     private String password;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,12 +108,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showLoading() {
-
+        loadingDialog = new LoadingDialog();
+        loadingDialog.show(getSupportFragmentManager(),"loadingDialog");
     }
 
     @Override
     public void hideLoading() {
-
+        loadingDialog.dismiss();
     }
 
     @Override

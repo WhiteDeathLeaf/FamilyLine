@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FamilyLine</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
     <string name="register">注册</string>
     <string name="register_soon">立即注册</string>
     <string name="login">登录</string>
@@ -12,4 +14,5 @@
     <string name="username_rules">用户名格式不正确</string>
     <string name="email_rules">邮箱格式不正确</string>
     <string name="equal_pwd">两次输入的密码不同</string>
+    <string name="message">消息</string>
 </resources>

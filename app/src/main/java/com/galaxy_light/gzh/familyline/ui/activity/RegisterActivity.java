@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVUtils;
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.ui.presenter.RegisterPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.RegisterView;
 import com.galaxy_light.gzh.familyline.utils.RegexUtil;
@@ -44,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private String password;
     private String passwordSure;
     private String email;
+    private LoadingDialog loadingDialog;
 
 
     @Override
@@ -130,12 +132,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void showLoading() {
-
+        loadingDialog = new LoadingDialog();
+        loadingDialog.show(getSupportFragmentManager(),"loadingDialog");
     }
 
     @Override
     public void hideLoading() {
-
+        loadingDialog.dismiss();
     }
 
     @Override

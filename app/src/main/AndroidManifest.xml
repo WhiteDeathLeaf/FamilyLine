@@ -43,7 +43,7 @@
         </activity>
         <activity android:name=".ui.activity.HomeActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.LoginActivity"></activity>
+        <activity android:name=".ui.activity.LoginActivity"/>
     </application>
 
 </manifest>
