@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import com.galaxy_light.gzh.familyline.utils.RegexUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -83,6 +86,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
     };
 
+    @OnCheckedChanged(R.id.cb_pwd_see)
+    public void onPwdSee(boolean isChecked) {
+        if (isChecked) {
+            tetLoginPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            tetLoginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+    }
+
     @OnClick(R.id.btn_login_soon)
     public void onLogin() {
         if (RegexUtil.verifyUsername(username) != RegexUtil.VERIFY_SUCCESS) {
@@ -109,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void showLoading() {
         loadingDialog = new LoadingDialog();
-        loadingDialog.show(getSupportFragmentManager(),"loadingDialog");
+        loadingDialog.show(getSupportFragmentManager(), "loadingDialog");
     }
 
     @Override

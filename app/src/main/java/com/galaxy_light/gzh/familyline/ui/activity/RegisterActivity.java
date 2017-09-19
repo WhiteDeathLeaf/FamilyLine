@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ import com.galaxy_light.gzh.familyline.utils.RegexUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
@@ -94,7 +97,16 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             btnRegisterSoon.setEnabled(canRegister);
         }
     };
-
+    @OnCheckedChanged(R.id.cb_pwd_see)
+    public void onPwdSee(boolean isChecked) {
+        if (isChecked) {
+            tetRegisterPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            tetRegisterPasswordSure.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            tetRegisterPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            tetRegisterPasswordSure.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+    }
     @OnClick(R.id.btn_register_soon)
     public void onRegister() {
         if (RegexUtil.verifyUsername(username) != RegexUtil.VERIFY_SUCCESS) {

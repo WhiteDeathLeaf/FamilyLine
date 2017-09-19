@@ -18,4 +18,7 @@
     <string name="contact">联系人</string>
     <string name="dynamic">动态</string>
     <string name="mine">我的</string>
+    <string name="chat_list">发起群聊</string>
+    <string name="add_friend">添加好友</string>
+    <string name="swipe">扫一扫</string>
 </resources>

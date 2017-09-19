@@ -47,16 +47,28 @@
             android:hint="@string/input_username"
             android:paddingLeft="@dimen/dp_10" />
 
-        <EditText
-            android:id="@+id/tet_login_password"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_20"
-            android:background="@drawable/bg_edit_stroke"
-            android:gravity="center_vertical"
-            android:hint="@string/input_password"
-            android:inputType="textPassword"
-            android:paddingLeft="@dimen/dp_10" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20">
+
+            <EditText
+                android:id="@+id/tet_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:background="@drawable/bg_edit_stroke"
+                android:gravity="center_vertical"
+                android:hint="@string/input_password"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/dp_10" />
+            <CheckBox
+                android:id="@+id/cb_pwd_see"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:button="@null"
+                android:background="@drawable/pwd_see_selector"/>
+        </FrameLayout>
 
         <Button
             android:id="@+id/btn_login_soon"
@@ -65,8 +77,8 @@
             android:layout_height="@dimen/dp_60"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/dp_20"
+            android:enabled="false"
             android:text="@string/login_soon"
-            android:textSize="@dimen/sp_16"
-            android:enabled="false"/>
+            android:textSize="@dimen/sp_16" />
     </LinearLayout>
 </RelativeLayout>

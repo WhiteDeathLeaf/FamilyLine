@@ -1,0 +1,46 @@
+package com.galaxy_light.gzh.familyline.ui.presenter;
+
+import android.support.v7.widget.RecyclerView;
+
+import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
+import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
+import com.galaxy_light.gzh.familyline.ui.view.MessageView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by gzh on 2017-9-19.
+ */
+
+public class MessagePresenter {
+    private MessageView messageView;
+    private List<MessageBean> messageBeen;
+    private MessageAdapter adapter;
+
+    public MessagePresenter(MessageView messageView) {
+        this.messageView = messageView;
+    }
+
+    public void requestMessageData(RecyclerView recyclerView) {
+        messageView.showLoading();
+        if (messageBeen == null) {
+            messageBeen = new ArrayList<>();
+        }
+        messageBeen.add(new MessageBean("", "你好，你是谁？", "15:09"));
+        messageBeen.add(new MessageBean("", "你好，你是谁", "15:08"));
+        messageBeen.add(new MessageBean("", "你好，你是", "15:07"));
+        messageBeen.add(new MessageBean("", "你好，你", "15:06"));
+        messageBeen.add(new MessageBean("", "你好，", "15:05"));
+        messageBeen.add(new MessageBean("", "你好", "15:04"));
+        messageBeen.add(new MessageBean("", "你", "15:03"));
+        messageBeen.add(new MessageBean("", "你好", "15:02"));
+        messageBeen.add(new MessageBean("", "你好，", "15:01"));
+        messageBeen.add(new MessageBean("", "你好，你", "15:00"));
+        if (adapter == null) {
+            adapter=new MessageAdapter(R.layout.item_home_message,messageBeen);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+}

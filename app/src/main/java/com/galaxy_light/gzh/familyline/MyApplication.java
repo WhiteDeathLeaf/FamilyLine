@@ -1,6 +1,7 @@
 package com.galaxy_light.gzh.familyline;
 
 import android.app.Application;
+import android.support.multidex.MultiDex;
 
 import com.avos.avoscloud.AVOSCloud;
 
@@ -12,6 +13,8 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        //文件分包支持
+        MultiDex.install(this);
         // 初始化LeanCloud
         AVOSCloud.initialize(this,"sjnykWLCDwXEN7hMWnyHwVxt-gzGzoHsz","8eUjnHzOIHSLXAllPPvVQ6q5");
         AVOSCloud.setDebugLogEnabled(true);
