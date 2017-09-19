@@ -1,5 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -108,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home_menu_add:
-
+                startActivity(new Intent(this,SearchActivity.class));
                 break;
             case R.id.home_menu_list:
 

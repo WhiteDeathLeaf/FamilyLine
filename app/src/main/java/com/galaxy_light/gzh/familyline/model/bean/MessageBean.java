@@ -5,14 +5,24 @@ package com.galaxy_light.gzh.familyline.model.bean;
  */
 
 public class MessageBean {
+    private String username;
     private String imageUrl;
     private String lastMessage;
     private String lastTime;
 
-    public MessageBean(String imageUrl, String lastMessage, String lastTime) {
+    public MessageBean(String username, String imageUrl, String lastMessage, String lastTime) {
+        this.username = username;
         this.imageUrl = imageUrl;
         this.lastMessage = lastMessage;
         this.lastTime = lastTime;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getImageUrl() {
