@@ -41,7 +41,7 @@ public class MP4Fragment extends Fragment implements TextureView.SurfaceTextureL
             FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
             mediaPlayer = new MediaPlayer();
             //视频资源
-            mediaPlayer.setDataSource(fileDescriptor,assetFileDescriptor.getStartOffset(),assetFileDescriptor.getLength());
+            mediaPlayer.setDataSource(fileDescriptor, assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
             //异步准备
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -59,7 +59,8 @@ public class MP4Fragment extends Fragment implements TextureView.SurfaceTextureL
     }
 
     @Override
-    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {}
+    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+    }
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
@@ -67,14 +68,24 @@ public class MP4Fragment extends Fragment implements TextureView.SurfaceTextureL
     }
 
     @Override
-    public void onSurfaceTextureUpdated(SurfaceTexture surface) {}
+    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer!=null){
+        if (mediaPlayer != null) {
             mediaPlayer.release();
-            mediaPlayer=null;
+            mediaPlayer = null;
         }
     }
 }

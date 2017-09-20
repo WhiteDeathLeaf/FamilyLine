@@ -44,7 +44,8 @@
         <activity android:name=".ui.activity.HomeActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.SearchActivity"></activity>
+        <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.MessageDetailActivity"/>
     </application>
 
 </manifest>

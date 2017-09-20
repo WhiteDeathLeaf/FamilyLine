@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="navigation">
+        <item>@string/message</item>
+        <item>@string/contact</item>
+        <item>@string/dynamic</item>
+        <item>@string/mine</item>
+    </string-array>
+</resources>

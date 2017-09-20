@@ -3,7 +3,6 @@ package com.galaxy_light.gzh.familyline.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,15 +18,18 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.ui.adapter.HomeViewPagerAdapter;
 import com.galaxy_light.gzh.familyline.ui.fragment.MessageFragment;
+import com.galaxy_light.gzh.familyline.ui.presenter.HomePresenter;
+import com.galaxy_light.gzh.familyline.ui.view.HomeView;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @BindView(R.id.tv_home)
     TextView tvHome;
@@ -42,6 +44,9 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.left_navigation)
     NavigationView leftNavigation;
 
+    @BindArray(R.array.navigation)
+    String[] navigation_title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +55,6 @@ public class HomeActivity extends AppCompatActivity {
         initToolbar();
         initBottomNavigation();
         initListener();
-        List<Fragment> fragments=new ArrayList<>();
-        fragments.add(new MessageFragment());
-        viewPager.setAdapter(new HomeViewPagerAdapter(getSupportFragmentManager(),fragments));
     }
 
     private void initToolbar() {
@@ -69,9 +71,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initBottomNavigation() {
-        bottomNavigation.setActiveColor(R.color.toolbar);
-        bottomNavigation.setInActiveColor(R.color.colorPrimary);
-        bottomNavigation.setBarBackgroundColor(R.color.colorPrimaryDark);
+        bottomNavigation.setActiveColor(R.color.toolbar)
+                .setInActiveColor(R.color.half_transparent)
+                .setBarBackgroundColor(R.color.white);
         bottomNavigation.addItem(new BottomNavigationItem(R.drawable.home_message, R.string.message))
                 .addItem(new BottomNavigationItem(R.drawable.home_contact, R.string.contact))
                 .addItem(new BottomNavigationItem(R.drawable.home_dynamic, R.string.dynamic))
@@ -80,27 +82,53 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initListener() {
-        bottomNavigation.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(int position) {
+        bottomNavigation.setTabSelectedListener(tabSelectedListener);
+        viewPager.addOnPageChangeListener(pageChangeListener);
+    }
 
-            }
+    private BottomNavigationBar.OnTabSelectedListener tabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(int position) {
+            viewPager.setCurrentItem(position);
+            tvHome.setText(navigation_title[position]);
+        }
 
-            @Override
-            public void onTabUnselected(int position) {
+        @Override
+        public void onTabUnselected(int position) {
 
-            }
+        }
 
-            @Override
-            public void onTabReselected(int position) {
+        @Override
+        public void onTabReselected(int position) {
 
-            }
-        });
+        }
+    };
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            bottomNavigation.selectTab(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new HomePresenter(this).setPage(getSupportFragmentManager());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        setIconEnable(menu,true);
+        setIconEnable(menu, true);
         getMenuInflater().inflate(R.menu.home_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -109,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home_menu_add:
-                startActivity(new Intent(this,SearchActivity.class));
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.home_menu_list:
 
@@ -124,7 +152,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setIconEnable(Menu menu, boolean enable) {
         if (menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
-                try{
+                try {
                     Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
                     m.setAccessible(true);
                     m.invoke(menu, enable);
@@ -133,5 +161,10 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void setAdapter(HomeViewPagerAdapter adapter) {
+        viewPager.setAdapter(adapter);
     }
 }

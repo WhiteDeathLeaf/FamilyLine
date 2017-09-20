@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
+import com.galaxy_light.gzh.familyline.ui.adapter.SearchAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.SearchPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.SearchView;
 
@@ -36,6 +38,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     RecyclerView rvSearch;
 
     private String username;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +85,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
             Toast.makeText(this, "没有搜索内容哦", Toast.LENGTH_SHORT).show();
             return;
         }
-        rvSearch.setLayoutManager(new LinearLayoutManager(this));
-        new SearchPresenter(this).requestSearchData(rvSearch);
+        new SearchPresenter(this).requestSearchData();
     }
 
     @Override
@@ -96,11 +98,18 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
     @Override
     public void showLoading() {
-
+        loadingDialog = new LoadingDialog();
+        loadingDialog.show(getSupportFragmentManager(), "loadingDialog");
     }
 
     @Override
     public void hideLoading() {
+        loadingDialog.dismiss();
+    }
 
+    @Override
+    public void setAdapter(SearchAdapter adapter) {
+        rvSearch.setLayoutManager(new LinearLayoutManager(this));
+        rvSearch.setAdapter(adapter);
     }
 }

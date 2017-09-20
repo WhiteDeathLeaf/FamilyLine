@@ -15,11 +15,13 @@
     <string name="email_rules">邮箱格式不正确</string>
     <string name="equal_pwd">两次输入的密码不同</string>
     <string name="message">消息</string>
-    <string name="contact">联系人</string>
+    <string name="contact">好友</string>
     <string name="dynamic">动态</string>
     <string name="mine">我的</string>
     <string name="chat_list">发起群聊</string>
     <string name="add_friend">添加好友</string>
     <string name="swipe">扫一扫</string>
     <string name="search">搜索</string>
+    <string name="delete">删除该聊天</string>
+    <string name="top">置顶该聊天</string>
 </resources>

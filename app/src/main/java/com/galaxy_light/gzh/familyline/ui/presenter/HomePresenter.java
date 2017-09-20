@@ -1,6 +1,17 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
+import com.galaxy_light.gzh.familyline.ui.adapter.HomeViewPagerAdapter;
+import com.galaxy_light.gzh.familyline.ui.fragment.ContactFragment;
+import com.galaxy_light.gzh.familyline.ui.fragment.DynamicFragment;
+import com.galaxy_light.gzh.familyline.ui.fragment.MessageFragment;
+import com.galaxy_light.gzh.familyline.ui.fragment.MineFragment;
 import com.galaxy_light.gzh.familyline.ui.view.HomeView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gzh on 2017-9-19.
@@ -8,9 +19,24 @@ import com.galaxy_light.gzh.familyline.ui.view.HomeView;
 
 public class HomePresenter {
     private HomeView homeView;
+    private List<Fragment> fragments;
+    private HomeViewPagerAdapter adapter;
 
     public HomePresenter(HomeView homeView) {
         this.homeView = homeView;
     }
 
+    public void setPage(FragmentManager fm) {
+        if (fragments == null) {
+            fragments = new ArrayList<>();
+        }
+        fragments.add(new MessageFragment());
+        fragments.add(new ContactFragment());
+        fragments.add(new DynamicFragment());
+        fragments.add(new MineFragment());
+        if (adapter == null) {
+            adapter = new HomeViewPagerAdapter(fm, fragments);
+            homeView.setAdapter(adapter);
+        }
+    }
 }

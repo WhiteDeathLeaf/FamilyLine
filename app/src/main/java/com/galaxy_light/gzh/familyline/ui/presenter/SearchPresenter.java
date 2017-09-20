@@ -1,7 +1,5 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.SearchAdapter;
@@ -23,7 +21,7 @@ public class SearchPresenter {
         this.searchView = searchView;
     }
 
-    public void requestSearchData(RecyclerView recyclerView) {
+    public void requestSearchData() {
         searchView.showLoading();
         if (userBeens == null) {
             userBeens = new ArrayList<>();
@@ -31,7 +29,8 @@ public class SearchPresenter {
         userBeens.add(new UserBean("", "Andy"));
         if (adapter == null) {
             adapter = new SearchAdapter(R.layout.item_search, userBeens);
-            recyclerView.setAdapter(adapter);
+            searchView.setAdapter(adapter);
         }
+        searchView.hideLoading();
     }
 }

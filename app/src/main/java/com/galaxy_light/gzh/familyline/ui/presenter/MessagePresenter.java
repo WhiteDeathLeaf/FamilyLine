@@ -1,7 +1,5 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
@@ -23,7 +21,7 @@ public class MessagePresenter {
         this.messageView = messageView;
     }
 
-    public void requestMessageData(RecyclerView recyclerView) {
+    public void requestMessageData() {
         messageView.showLoading();
         if (messageBeen == null) {
             messageBeen = new ArrayList<>();
@@ -40,7 +38,8 @@ public class MessagePresenter {
         messageBeen.add(new MessageBean("小十","", "你好，你", "15:00"));
         if (adapter == null) {
             adapter=new MessageAdapter(R.layout.item_home_message,messageBeen);
-            recyclerView.setAdapter(adapter);
+            messageView.setAdapter(adapter);
         }
+        messageView.hideLoading();
     }
 }

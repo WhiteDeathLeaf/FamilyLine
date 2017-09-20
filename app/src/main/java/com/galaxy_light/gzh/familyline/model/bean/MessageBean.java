@@ -1,10 +1,13 @@
 package com.galaxy_light.gzh.familyline.model.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by gzh on 2017-9-19.
  */
 
-public class MessageBean {
+public class MessageBean implements Parcelable {
     private String username;
     private String imageUrl;
     private String lastMessage;
@@ -48,4 +51,36 @@ public class MessageBean {
     public void setLastTime(String lastTime) {
         this.lastTime = lastTime;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.username);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.lastMessage);
+        dest.writeString(this.lastTime);
+    }
+
+    protected MessageBean(Parcel in) {
+        this.username = in.readString();
+        this.imageUrl = in.readString();
+        this.lastMessage = in.readString();
+        this.lastTime = in.readString();
+    }
+
+    public static final Parcelable.Creator<MessageBean> CREATOR = new Parcelable.Creator<MessageBean>() {
+        @Override
+        public MessageBean createFromParcel(Parcel source) {
+            return new MessageBean(source);
+        }
+
+        @Override
+        public MessageBean[] newArray(int size) {
+            return new MessageBean[size];
+        }
+    };
 }
