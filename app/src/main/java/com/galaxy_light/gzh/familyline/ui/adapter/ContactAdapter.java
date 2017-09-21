@@ -39,15 +39,18 @@ public class ContactAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder> {
         if (!TextUtils.isEmpty(item.getImageUrl())) {
             //设置用户头像
             Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.iv_message_avatar));
-        }else{
-            helper.setImageResource(R.id.iv_contact_avatar,R.drawable.ic_launcher);
+        } else {
+            helper.setImageResource(R.id.iv_contact_avatar, R.drawable.ic_launcher);
         }
         //设置用户名
         helper.setText(R.id.tv_contact_username, item.getUsername());
+        //增加子控件点击与长按事件
+        helper.addOnClickListener(R.id.ll_contact).addOnLongClickListener(R.id.ll_contact);
     }
 
     /**
      * 获取catalog首次出现位置
+     *
      * @param catalog 目录
      */
     private int getPositionForSection(String catalog) {

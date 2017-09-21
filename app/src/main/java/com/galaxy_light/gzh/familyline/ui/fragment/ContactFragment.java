@@ -8,13 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.custom.view.IndexBar;
 import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
+import com.galaxy_light.gzh.familyline.model.bean.UserBean;
+import com.galaxy_light.gzh.familyline.ui.activity.ContactDetailActivity;
+import com.galaxy_light.gzh.familyline.ui.activity.HomeActivity;
 import com.galaxy_light.gzh.familyline.ui.adapter.ContactAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.ContactPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.ContactView;
+import com.galaxy_light.gzh.familyline.utils.PopupManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,18 +73,35 @@ public class ContactFragment extends Fragment implements ContactView {
 
     @Override
     public void setAdapter(final ContactAdapter adapter) {
+        adapter.setOnItemChildClickListener(childClickListener);
+        adapter.setOnItemChildLongClickListener(childLongClickListener);
         rvContact.setLayoutManager(new LinearLayoutManager(getContext()));
         rvContact.setAdapter(adapter);
-        indexBar.setOnStrSelectCallBack(new IndexBar.IndexSelectCallBack() {
-            @Override
-            public void onSelectStr(int index, String selectStr) {
-                for (int i = 0; i < adapter.getData().size(); i++) {
-                    if (selectStr.equalsIgnoreCase(adapter.getData().get(i).getFirstLetter())) {
-                        rvContact.scrollToPosition(i); // 移动到首字母出现的位置
-                        return;
-                    }
+        indexBar.setOnStrSelectCallBack((index, selectStr) -> {
+            for (int i = 0; i < adapter.getData().size(); i++) {
+                if (selectStr.equalsIgnoreCase(adapter.getData().get(i).getFirstLetter())) {
+                    rvContact.scrollToPosition(i); // 移动到首字母出现的位置
+                    return;
                 }
             }
         });
     }
+
+    private BaseQuickAdapter.OnItemChildClickListener childClickListener = (adapter, view, position) -> {
+        ContactDetailActivity.fromContact(getContext(), (UserBean) adapter.getData().get(position));
+        ((HomeActivity) getActivity()).setCurrentPage(1);
+    };
+    private BaseQuickAdapter.OnItemChildLongClickListener childLongClickListener = (adapter, view, position) -> {
+        PopupManager.getInstance().createEasyMenu(view, new String[]{"备注", "标签"}, v -> {
+            switch (v.getId()) {
+                case R.id.tv_popup_easy_1:
+                    Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tv_popup_easy_2:
+                    Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        });
+        return true;
+    };
 }

@@ -144,17 +144,7 @@ public class LoadingView extends View {
     public void start() {
         if (mTimer == null || mTimer.isUnsubscribed()) {
             mTimer = Observable.interval(mDuration, TimeUnit.MILLISECONDS)
-                    .subscribe(new Action1<Long>() {
-                        @Override
-                        public void call(Long aLong) {
-                            dealTimerBusiness();
-                        }
-                    }, new Action1<Throwable>() {
-                        @Override
-                        public void call(Throwable throwable) {
-
-                        }
-                    });
+                    .subscribe(aLong -> dealTimerBusiness(), throwable -> {});
         }
         this.setVisibility(VISIBLE);
     }
@@ -325,22 +315,12 @@ public class LoadingView extends View {
 
         ValueAnimator circleGetSmallerAnimator = ValueAnimator.ofFloat(getMaxInternalRadius(), getMinInternalRadius());
         circleGetSmallerAnimator.setDuration(5000L);
-        circleGetSmallerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mGetSmallerCircleRadius = (float) animation.getAnimatedValue();
-            }
-        });
+        circleGetSmallerAnimator.addUpdateListener(animation -> mGetSmallerCircleRadius = (float) animation.getAnimatedValue());
         mAnimators.add(circleGetSmallerAnimator);
 
         ValueAnimator circleGetBiggerAnimator = ValueAnimator.ofFloat(getMinInternalRadius(), getMaxInternalRadius());
         circleGetBiggerAnimator.setDuration(5000L);
-        circleGetBiggerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mGetBiggerCircleRadius = (float) animation.getAnimatedValue();
-            }
-        });
+        circleGetBiggerAnimator.addUpdateListener(animation -> mGetBiggerCircleRadius = (float) animation.getAnimatedValue());
         mAnimators.add(circleGetBiggerAnimator);
 
     }

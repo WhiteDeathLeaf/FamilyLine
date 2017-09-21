@@ -34,10 +34,8 @@
         <!-- 反馈组件（需要加入以下声明）START -->
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <!-- 反馈组件 END -->
-        <activity android:name=".ui.activity.WelcomeActivity">
-
-        </activity>
-        <activity android:name=".ui.activity.HomeActivity" >
+        <activity android:name=".ui.activity.WelcomeActivity"></activity>
+        <activity android:name=".ui.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +45,8 @@
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.MessageDetailActivity"/>
+        <activity android:name=".ui.activity.MessageDetailActivity" />
+        <activity android:name=".ui.activity.ContactDetailActivity"></activity>
     </application>
 
 </manifest>

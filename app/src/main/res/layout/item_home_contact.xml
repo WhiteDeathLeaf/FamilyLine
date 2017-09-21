@@ -13,6 +13,7 @@
         android:textSize="@dimen/sp_20" />
 
     <LinearLayout
+        android:id="@+id/ll_contact"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_80"
         android:orientation="horizontal"

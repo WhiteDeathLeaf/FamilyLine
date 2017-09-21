@@ -47,6 +47,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @BindArray(R.array.navigation)
     String[] navigation_title;
 
+    private int currentPage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +126,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     protected void onStart() {
         super.onStart();
         new HomePresenter(this).setPage(getSupportFragmentManager());
+        viewPager.setCurrentItem(currentPage);
     }
 
     @Override
@@ -166,5 +169,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void setAdapter(HomeViewPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
+    }
+
+    /**
+     * 设置当前显示页面
+     * @param page 页面下标
+     */
+    public void setCurrentPage(int page) {
+        currentPage = page;
     }
 }

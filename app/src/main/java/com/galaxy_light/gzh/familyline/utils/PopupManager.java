@@ -1,16 +1,20 @@
 package com.galaxy_light.gzh.familyline.utils;
 
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import com.galaxy_light.gzh.familyline.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 弹出菜单管理器
@@ -56,7 +60,7 @@ public class PopupManager {
     }
 
     /**
-     * 生成多列表菜单
+     * 生成自定义菜单
      *
      * @param view     可获取Context的视图
      * @param res      布局资源id
@@ -71,16 +75,54 @@ public class PopupManager {
         View popupView = LayoutInflater.from(view.getContext()).inflate(res, null);
         popupWindow.setContentView(popupView);
         for (int id : ids) {
-            popupView.findViewById(id).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    popupChildListener.onChildClick(view);
-                    popupWindow.dismiss();
-                }
+            popupView.findViewById(id).setOnClickListener(view1 -> {
+                popupChildListener.onChildClick(view1);
+                popupWindow.dismiss();
             });
         }
         popupWindow.showAsDropDown(view, view.getWidth() / 3, 0);
         return this;
+    }
+
+    /**
+     * 生成多列表菜单
+     *
+     * @param view      可获取Context的视图
+     * @param itemTitle item标题
+     * @param listener  子控件点击监听器
+     * @return this
+     */
+    public PopupManager createEasyMenu(View view, String[] itemTitle, PopupChildListener listener) {
+        this.popupChildListener = listener;
+        setSize(SIZE_WRAP);
+        View popupView = LayoutInflater.from(view.getContext()).inflate(R.layout.popup_easy_item, null);
+        popupWindow.setContentView(popupView);
+        List<TextView> childViewList = getChildViewList(popupView);
+        for (int i = 0; i < itemTitle.length; i++) {
+            childViewList.get(i).setText(itemTitle[i]);
+            childViewList.get(i).setVisibility(View.VISIBLE);
+            childViewList.get(i).setOnClickListener(v -> {
+                popupChildListener.onChildClick(v);
+                popupWindow.dismiss();
+            });
+        }
+        popupWindow.showAsDropDown(view, view.getWidth() / 3, 0);
+        return this;
+    }
+
+    private List<TextView> getChildViewList(View popupView) {
+        List<TextView> views = new ArrayList<>();
+        views.add(popupView.findViewById(R.id.tv_popup_easy_1));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_2));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_3));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_4));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_5));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_6));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_7));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_8));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_9));
+        views.add(popupView.findViewById(R.id.tv_popup_easy_10));
+        return views;
     }
 
     /**

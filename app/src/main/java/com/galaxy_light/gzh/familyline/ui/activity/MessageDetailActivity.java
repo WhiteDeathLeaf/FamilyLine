@@ -9,11 +9,11 @@ import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
 
 public class MessageDetailActivity extends AppCompatActivity {
-    private static final String MESSAGE_BEAN = "message_bean";
+    private static final String MESSAGE = "message";
 
     public static void fromMessage(Context context, MessageBean messageBean) {
         Intent intent = new Intent(context, MessageDetailActivity.class);
-        intent.putExtra(MESSAGE_BEAN, messageBean);
+        intent.putExtra(MESSAGE, messageBean);
         context.startActivity(intent);
     }
 

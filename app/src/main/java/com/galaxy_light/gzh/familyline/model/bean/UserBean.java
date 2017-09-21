@@ -1,5 +1,7 @@
 package com.galaxy_light.gzh.familyline.model.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.galaxy_light.gzh.familyline.utils.SpellUtil;
@@ -9,7 +11,7 @@ import com.galaxy_light.gzh.familyline.utils.SpellUtil;
  * Created by gzh on 2017/9/19.
  */
 
-public class UserBean implements Comparable<UserBean> {
+public class UserBean implements Comparable<UserBean>,Parcelable {
     private String imageUrl;
     private String username;
     private String pinyin;
@@ -67,4 +69,36 @@ public class UserBean implements Comparable<UserBean> {
             return pinyin.compareToIgnoreCase(userBean.getPinyin());
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.username);
+        dest.writeString(this.pinyin);
+        dest.writeString(this.firstLetter);
+    }
+
+    protected UserBean(Parcel in) {
+        this.imageUrl = in.readString();
+        this.username = in.readString();
+        this.pinyin = in.readString();
+        this.firstLetter = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>() {
+        @Override
+        public UserBean createFromParcel(Parcel source) {
+            return new UserBean(source);
+        }
+
+        @Override
+        public UserBean[] newArray(int size) {
+            return new UserBean[size];
+        }
+    };
 }
