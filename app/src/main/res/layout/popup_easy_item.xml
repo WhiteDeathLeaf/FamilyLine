@@ -22,7 +22,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_3"
         android:layout_width="wrap_content"
@@ -30,7 +31,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_4"
         android:layout_width="wrap_content"
@@ -38,7 +40,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_5"
         android:layout_width="wrap_content"
@@ -46,7 +49,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_6"
         android:layout_width="wrap_content"
@@ -54,7 +58,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_7"
         android:layout_width="wrap_content"
@@ -62,7 +67,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_8"
         android:layout_width="wrap_content"
@@ -70,7 +76,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_9"
         android:layout_width="wrap_content"
@@ -78,7 +85,8 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
     <TextView
         android:id="@+id/tv_popup_easy_10"
         android:layout_width="wrap_content"
@@ -86,5 +94,6 @@
         android:gravity="center"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"/>
 </LinearLayout>

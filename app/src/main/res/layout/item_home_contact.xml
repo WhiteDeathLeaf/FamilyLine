@@ -10,14 +10,15 @@
         android:layout_height="wrap_content"
         android:background="@color/toolbar"
         android:padding="@dimen/dp_10"
-        android:textSize="@dimen/sp_20" />
+        android:textSize="@dimen/sp_18" />
 
     <LinearLayout
         android:id="@+id/ll_contact"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_80"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_item_stroke">
         <ImageView
             android:id="@+id/iv_contact_avatar"
             android:layout_width="@dimen/dp_60"
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            android:textSize="16sp" />
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16" />
     </LinearLayout>
 </LinearLayout>

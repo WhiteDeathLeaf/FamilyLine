@@ -80,7 +80,7 @@ public class PopupManager {
                 popupWindow.dismiss();
             });
         }
-        popupWindow.showAsDropDown(view, view.getWidth() / 3, 0);
+        popupWindow.showAsDropDown(view, view.getWidth() / 3, -view.getHeight());
         return this;
     }
 
@@ -106,7 +106,7 @@ public class PopupManager {
                 popupWindow.dismiss();
             });
         }
-        popupWindow.showAsDropDown(view, view.getWidth() / 3, 0);
+        popupWindow.showAsDropDown(view, view.getWidth() / 3, -view.getHeight());
         return this;
     }
 
