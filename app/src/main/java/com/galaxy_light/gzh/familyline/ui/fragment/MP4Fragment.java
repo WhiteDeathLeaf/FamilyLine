@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
+/**
+ * MP4Fragment
+ * Created by gzh on 2017-9-17.
+ */
 public class MP4Fragment extends Fragment implements TextureView.SurfaceTextureListener {
 
     private TextureView textureView;

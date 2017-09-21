@@ -3,6 +3,7 @@ package com.galaxy_light.gzh.familyline.ui.view;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
 
 /**
+ * 消息页View
  * Created by gzh on 2017-9-19.
  */
 

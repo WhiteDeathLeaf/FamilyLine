@@ -6,6 +6,7 @@ import com.avos.avoscloud.LogInCallback;
 import com.galaxy_light.gzh.familyline.ui.view.LoginView;
 
 /**
+ * 登录页Presenter
  * Created by gzh on 2017/9/17.
  */
 

@@ -6,17 +6,19 @@ import android.support.multidex.MultiDex;
 import com.avos.avoscloud.AVOSCloud;
 
 /**
+ * MyApplication
  * Created by gzh on 2017/9/17.
  */
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
         //文件分包支持
         MultiDex.install(this);
         // 初始化LeanCloud
-        AVOSCloud.initialize(this,"sjnykWLCDwXEN7hMWnyHwVxt-gzGzoHsz","8eUjnHzOIHSLXAllPPvVQ6q5");
+        AVOSCloud.initialize(this, "sjnykWLCDwXEN7hMWnyHwVxt-gzGzoHsz", "8eUjnHzOIHSLXAllPPvVQ6q5");
         AVOSCloud.setDebugLogEnabled(true);
     }
 }

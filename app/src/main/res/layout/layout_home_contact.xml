@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.galaxy_light.gzh.familyline.custom.view.IndexBar
+        android:id="@+id/indexBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/dp_10"
+        android:textSize="@dimen/sp_16"/>
+</RelativeLayout>

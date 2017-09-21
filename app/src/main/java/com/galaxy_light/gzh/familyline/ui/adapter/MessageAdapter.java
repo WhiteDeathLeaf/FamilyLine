@@ -13,6 +13,7 @@ import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
 import java.util.List;
 
 /**
+ * 消息Adapter
  * Created by gzh on 2017-9-19.
  */
 

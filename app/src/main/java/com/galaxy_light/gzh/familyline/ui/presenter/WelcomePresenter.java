@@ -3,6 +3,7 @@ package com.galaxy_light.gzh.familyline.ui.presenter;
 import com.galaxy_light.gzh.familyline.ui.view.WelcomeView;
 
 /**
+ * 欢迎页Presenter
  * Created by gzh on 2017/9/17.
  */
 

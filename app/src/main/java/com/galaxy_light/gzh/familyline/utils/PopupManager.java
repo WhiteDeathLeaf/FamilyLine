@@ -18,8 +18,10 @@ import java.lang.annotation.RetentionPolicy;
  */
 
 public class PopupManager {
+
     public static final int SIZE_FULL_WIDTH = 0;//宽match_parent，高warp_content
     public static final int SIZE_WRAP = 1;//warp_content
+
     private static PopupManager popupManager;
     private PopupWindow popupWindow;
     private PopupChildListener popupChildListener;
@@ -31,6 +33,7 @@ public class PopupManager {
         popupWindow.setBackgroundDrawable(new ColorDrawable());//设置点击外部可取消popupWindow
     }
 
+    //弹出菜单尺寸
     @IntDef({SIZE_FULL_WIDTH, SIZE_WRAP})
     @Retention(RetentionPolicy.SOURCE)
     private @interface Size {

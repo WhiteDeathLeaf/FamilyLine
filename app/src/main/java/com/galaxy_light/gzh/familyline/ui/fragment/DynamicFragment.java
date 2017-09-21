@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * 动态Fragment
  * Created by gzh on 2017-9-20.
  */
 

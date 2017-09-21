@@ -68,6 +68,7 @@ public class LoadingDialog extends DialogFragment {
         if (loadingView != null) {
             //停止loadingView
             loadingView.stop();
+            loadingView = null;
         }
     }
 }

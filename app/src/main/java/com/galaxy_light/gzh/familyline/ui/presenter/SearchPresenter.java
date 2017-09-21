@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 搜索页Presenter
  * Created by gzh on 2017/9/19.
  */
 

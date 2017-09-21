@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * 消息页实体类
  * Created by gzh on 2017-9-19.
  */
 

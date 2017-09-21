@@ -37,36 +37,20 @@ public class LoadingView extends View {
 
     private int mWidth;
     private int mHeight;
-    private Subscription mTimer;
+    private Subscription mTimer;//定时器
     private Paint mPaint;
     private Path mPath = new Path();
 
-    //内圆色
-    int mColors[];
+    private int mColors[];//内圆颜色
+    private int mAngle = 0;//外圆角度
+    private int mCyclic = 0;//圈数
+    private float mGetBiggerCircleRadius;//变大动画圆半径
+    private float mGetSmallerCircleRadius;//移动圆半径
 
-    //外圆角度
-    int mAngle = 0;
-
-    //圈数
-    int mCyclic = 0;
-
-    //变大动画圆半径
-    private float mGetBiggerCircleRadius;
-
-    //移动圆半径
-    private float mGetSmallerCircleRadius;
-
-    //外圆
-    private List<PointF> mPoints;
-
-    //属性动画集
-    private List<ValueAnimator> mAnimators;
-
-    //外圆圆点
-    private float x0, y0;
-
-    //点间的弧度
-    private int mRadian = DEFAULT_RADIAN;
+    private List<PointF> mPoints;//外圆
+    private List<ValueAnimator> mAnimators;//属性动画集
+    private float x0, y0;//外圆圆点
+    private int mRadian = DEFAULT_RADIAN;//点间的弧度
 
     //时间间隔
     private int mDuration;
@@ -175,6 +159,9 @@ public class LoadingView extends View {
         this.setVisibility(VISIBLE);
     }
 
+    /**
+     * 停止
+     */
     public void stop() {
         if (mTimer != null) {
             mTimer.unsubscribe();
@@ -268,9 +255,8 @@ public class LoadingView extends View {
             leftX = mPoints.get(index >= mPoints.size() ? mPoints.size() - 1 : index).x;
             leftY = mPoints.get(index >= mPoints.size() ? mPoints.size() - 1 : index).y;
         } else {
-            int index = circleIndex;
-            leftX = mPoints.get(index < 0 ? 0 : index).x;
-            leftY = mPoints.get(index < 0 ? 0 : index).y;
+            leftX = mPoints.get(circleIndex < 0 ? 0 : circleIndex).x;
+            leftY = mPoints.get(circleIndex < 0 ? 0 : circleIndex).y;
         }
 
         double theta = getTheta(new PointF(leftX, leftY), new PointF(rightX, rightY));
@@ -365,6 +351,11 @@ public class LoadingView extends View {
         }
     }
 
+    /**
+     * 设置偏移量
+     *
+     * @param offSet 偏移量
+     */
     public void setOffset(float offSet) {
         createAnimator();
         seekAnimator(offSet);
@@ -442,13 +433,12 @@ public class LoadingView extends View {
     /**
      * 获取theta值
      *
-     * @param pointCenterLeft 左圆心
+     * @param pointCenterLeft  左圆心
      * @param pointCenterRight 右圆心
      * @return 角度
      */
     private double getTheta(PointF pointCenterLeft, PointF pointCenterRight) {
-        double theta = Math.atan((pointCenterRight.y - pointCenterLeft.y) / (pointCenterRight.x - pointCenterLeft.x));
-        return theta;
+        return Math.atan((pointCenterRight.y - pointCenterLeft.y) / (pointCenterRight.x - pointCenterLeft.x));
     }
 
     /**

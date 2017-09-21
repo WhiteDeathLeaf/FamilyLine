@@ -14,6 +14,7 @@ import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import java.util.List;
 
 /**
+ * 搜索Adapter
  * Created by gzh on 2017/9/19.
  */
 

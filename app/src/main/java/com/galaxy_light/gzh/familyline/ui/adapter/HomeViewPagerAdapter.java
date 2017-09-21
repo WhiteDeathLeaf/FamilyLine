@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.List;
 
 /**
+ * 主页Adapter
  * Created by gzh on 2017-9-19.
  */
 
