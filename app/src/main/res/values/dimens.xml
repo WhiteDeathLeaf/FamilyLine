@@ -16,4 +16,11 @@
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_32">32dp</dimen>
     <dimen name="dp_26">26dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_64">64dp</dimen>
+
+    <!-- Default radius for LeBubbleView corners. -->
+    <dimen name="bubbleView_default_radius">4dp</dimen>
+    <!-- Default text size for content text. -->
+    <dimen name="bubbleView_default_text_size">14sp</dimen>
 </resources>

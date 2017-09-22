@@ -24,4 +24,6 @@
     <string name="search">搜索</string>
     <string name="delete">删除该聊天</string>
     <string name="top">置顶该聊天</string>
+    <string name="hold_speak">按住 说话</string>
+    <string name="send">发送</string>
 </resources>
