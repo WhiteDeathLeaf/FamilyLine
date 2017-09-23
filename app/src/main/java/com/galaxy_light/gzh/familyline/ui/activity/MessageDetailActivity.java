@@ -32,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import butterknife.OnTouch;
 
 public class MessageDetailActivity extends AppCompatActivity implements MessageDetailView {
 
@@ -130,6 +132,13 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     public void onCheck(CompoundButton compoundButton, boolean isCheck) {
         switch (compoundButton.getId()) {
             case R.id.cb_at_input:
+                if (tetMessageInput.isFocused()) {
+                    tetMessageInput.clearFocus();
+                    cbAtInput.setChecked(true);
+                    tetMessageInput.setVisibility(View.GONE);
+                    btnMessageInput.setVisibility(View.VISIBLE);
+                    return;
+                }
                 if (isCheck) {
                     tetMessageInput.setVisibility(View.GONE);
                     btnMessageInput.setVisibility(View.VISIBLE);
@@ -140,6 +149,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                 } else {
                     tetMessageInput.setVisibility(View.VISIBLE);
                     btnMessageInput.setVisibility(View.GONE);
+                    tetMessageInput.requestFocus();
                 }
                 break;
             case R.id.cb_et_input:
@@ -152,6 +162,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                 } else {
                     flEmoji.setVisibility(View.GONE);
                 }
+                tetMessageInput.requestFocus();
                 break;
             case R.id.cb_more:
                 if (isCheck) {
@@ -169,7 +180,22 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
 
     @OnClick(R.id.btn_message_send)
     public void onSend() {
+    }
 
+    @OnTouch(R.id.rv_message_detail)
+    public boolean onTouch() {
+        tetMessageInput.clearFocus();
+        messageDetailBottom.setVisibility(View.GONE);
+        return true;
+    }
+
+    @OnFocusChange(R.id.tet_message_input)
+    public void onFocusChanged(boolean isChange) {
+        if (!isChange) {
+            cbAtInput.setChecked(false);
+            cbEtInput.setChecked(false);
+            cbMore.setChecked(false);
+        }
     }
 
     @Override

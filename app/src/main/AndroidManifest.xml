@@ -34,14 +34,14 @@
         <!-- 反馈组件（需要加入以下声明）START -->
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <!-- 反馈组件 END -->
-        <activity android:name=".ui.activity.WelcomeActivity"></activity>
-        <activity android:name=".ui.activity.HomeActivity">
+        <activity android:name=".ui.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.HomeActivity"/>
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.SearchActivity" />

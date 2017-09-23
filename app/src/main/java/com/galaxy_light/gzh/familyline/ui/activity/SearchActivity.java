@@ -8,12 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.ui.adapter.SearchAdapter;
@@ -38,7 +42,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     RecyclerView rvSearch;
 
     private String username;
+    private int index;
     private LoadingDialog loadingDialog;
+    private SearchPresenter searchPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         ButterKnife.bind(this);
         initToolbar();
         initListener(textWatcher);
+        searchPresenter = new SearchPresenter(this);
     }
 
     private void initToolbar() {
@@ -85,7 +92,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
             Toast.makeText(this, "没有搜索内容哦", Toast.LENGTH_SHORT).show();
             return;
         }
-        new SearchPresenter(this).requestSearchData();
+        searchPresenter.requestSearchData(username);
     }
 
     @Override
@@ -108,8 +115,29 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     }
 
     @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void setAdapter(SearchAdapter adapter) {
+        adapter.setOnItemChildClickListener((adapter1, view, position) -> {
+            index = position;
+            searchPresenter.addFiend(adapter.getData().get(position).getId());
+        });
         rvSearch.setLayoutManager(new LinearLayoutManager(this));
         rvSearch.setAdapter(adapter);
     }
+
+    @Override
+    public void isAdded(boolean isAdded) {
+        if (isAdded) {
+            Button button = (Button) ((SearchAdapter) (rvSearch.getAdapter())).getViewByPosition(rvSearch, index, R.id.btn_search_add);
+            if (button != null) {
+                button.setEnabled(false);
+                button.setText(R.string.added);
+            }
+        }
+    }
+
 }

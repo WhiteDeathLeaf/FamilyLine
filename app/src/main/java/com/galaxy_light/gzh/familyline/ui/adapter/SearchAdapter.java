@@ -34,5 +34,6 @@ public class SearchAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder> {
         }
         //设置用户名
         helper.setText(R.id.tv_search_username, item.getUsername());
+        helper.addOnClickListener(R.id.btn_search_add);
     }
 }

@@ -18,7 +18,7 @@
         android:text="Luna"
         android:textSize="@dimen/sp_16"/>
     <Button
-        android:id="@+id/tv_search_add"
+        android:id="@+id/btn_search_add"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

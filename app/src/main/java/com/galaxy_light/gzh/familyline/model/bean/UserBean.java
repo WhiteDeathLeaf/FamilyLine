@@ -11,15 +11,17 @@ import com.galaxy_light.gzh.familyline.utils.SpellUtil;
  * Created by gzh on 2017/9/19.
  */
 
-public class UserBean implements Comparable<UserBean>,Parcelable {
+public class UserBean implements Comparable<UserBean>, Parcelable {
     private String imageUrl;
     private String username;
     private String pinyin;
     private String firstLetter;
+    private String id;
 
-    public UserBean(String imageUrl, String username) {
+    public UserBean(String imageUrl, String username, String id) {
         this.imageUrl = imageUrl;
         this.username = username;
+        this.id = id;
         pinyin = SpellUtil.getPinYin(username); // 根据姓名获取拼音
         firstLetter = pinyin.substring(0, 1).toUpperCase(); // 获取拼音首字母并转成大写
         if (!firstLetter.matches("[A-Z]")) { // 如果不在A-Z中则默认为“#”
@@ -59,11 +61,19 @@ public class UserBean implements Comparable<UserBean>,Parcelable {
         this.username = username;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public int compareTo(@NonNull UserBean userBean) {
         if (firstLetter.equals("#") && !userBean.getFirstLetter().equals("#")) {
             return 1;
-        } else if (!firstLetter.equals("#") && userBean.getFirstLetter().equals("#")){
+        } else if (!firstLetter.equals("#") && userBean.getFirstLetter().equals("#")) {
             return -1;
         } else {
             return pinyin.compareToIgnoreCase(userBean.getPinyin());
