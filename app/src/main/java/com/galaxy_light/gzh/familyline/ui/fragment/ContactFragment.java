@@ -45,13 +45,8 @@ public class ContactFragment extends Fragment implements ContactView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_home_contact, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         new ContactPresenter(this).requestContactData();
+        return view;
     }
 
     @Override

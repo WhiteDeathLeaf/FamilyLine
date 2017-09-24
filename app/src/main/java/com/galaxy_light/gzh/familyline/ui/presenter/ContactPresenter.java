@@ -1,5 +1,11 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
+import android.util.Log;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.ContactAdapter;
@@ -28,25 +34,24 @@ public class ContactPresenter {
         if (userBeen == null) {
             userBeen = new ArrayList<>();
         }
-        userBeen.add(new UserBean("","张三",""));
-        userBeen.add(new UserBean("","李四",""));
-        userBeen.add(new UserBean("","王二",""));
-        userBeen.add(new UserBean("","波波",""));
-        userBeen.add(new UserBean("","阿旺",""));
-        userBeen.add(new UserBean("","方方",""));
-        userBeen.add(new UserBean("","大娃",""));
-        userBeen.add(new UserBean("","二娃",""));
-        userBeen.add(new UserBean("","三娃",""));
-        userBeen.add(new UserBean("","四娃",""));
-        userBeen.add(new UserBean("","五娃",""));
-        userBeen.add(new UserBean("","六娃",""));
-        userBeen.add(new UserBean("","七娃",""));
-        Collections.sort(userBeen);
-        if (adapter==null){
-            adapter=new ContactAdapter(R.layout.item_home_contact,userBeen);
-            contactView.setAdapter(adapter);
-        }
-        contactView.hideLoading();
+        AVQuery<AVUser> followeeQuery = AVUser.followeeQuery(AVUser.getCurrentUser().getObjectId(), AVUser.class);
+        followeeQuery.include("followee");
+        followeeQuery.findInBackground(new FindCallback<AVUser>() {
+            @Override
+            public void done(List<AVUser> list, AVException e) {
+                if (e == null) {
+                    for (AVUser user : list) {
+                        userBeen.add(new UserBean("", user.getUsername(), user.getObjectId()));
+                    }
+                    Collections.sort(userBeen);
+                    if (adapter == null) {
+                        adapter = new ContactAdapter(R.layout.item_home_contact, userBeen);
+                        contactView.setAdapter(adapter);
+                    }
+                    contactView.hideLoading();
+                }
+            }
+        });
     }
 
 }

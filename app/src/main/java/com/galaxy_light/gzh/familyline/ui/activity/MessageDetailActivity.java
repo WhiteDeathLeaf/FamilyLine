@@ -38,6 +38,7 @@ import butterknife.OnTouch;
 public class MessageDetailActivity extends AppCompatActivity implements MessageDetailView {
 
     private static final String MESSAGE = "message";
+    private static final String CONTACT_DETAIL = "contact_detail";
 
     @BindView(R.id.tv_message_detail)
     TextView tvMessageDetail;
@@ -70,6 +71,12 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     public static void fromMessage(Context context, MessageBean messageBean) {
         Intent intent = new Intent(context, MessageDetailActivity.class);
         intent.putExtra(MESSAGE, messageBean);
+        context.startActivity(intent);
+    }
+
+    public static void fromContactDetail(Context context, MessageBean messageBean) {
+        Intent intent = new Intent(context, MessageDetailActivity.class);
+        intent.putExtra(CONTACT_DETAIL, messageBean);
         context.startActivity(intent);
     }
 

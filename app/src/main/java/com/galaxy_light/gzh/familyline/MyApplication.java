@@ -4,6 +4,13 @@ import android.app.Application;
 import android.support.multidex.MultiDex;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 
 /**
  * MyApplication
@@ -12,6 +19,17 @@ import com.avos.avoscloud.AVOSCloud;
 
 public class MyApplication extends Application {
 
+    public static class MyMessageHandler extends AVIMMessageHandler{
+        @Override
+        public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            super.onMessage(message, conversation, client);
+        }
+
+        @Override
+        public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            super.onMessageReceipt(message, conversation, client);
+        }
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,5 +38,7 @@ public class MyApplication extends Application {
         // 初始化LeanCloud
         AVOSCloud.initialize(this, "sjnykWLCDwXEN7hMWnyHwVxt-gzGzoHsz", "8eUjnHzOIHSLXAllPPvVQ6q5");
         AVOSCloud.setDebugLogEnabled(true);
+        //注册默认的消息处理逻辑
+        AVIMMessageManager.registerDefaultMessageHandler(new MyMessageHandler());
     }
 }
