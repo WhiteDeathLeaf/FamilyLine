@@ -8,4 +8,6 @@ import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 
 public interface MessageDetailView {
     void setDetailAdapter(MessageDetailAdapter adapter);
+
+    void showMessage(String message);
 }

@@ -2,6 +2,7 @@ package com.galaxy_light.gzh.familyline.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -97,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             btnRegisterSoon.setEnabled(canRegister);
         }
     };
+
     @OnCheckedChanged(R.id.cb_pwd_see)
     public void onPwdSee(boolean isChecked) {
         if (isChecked) {
@@ -107,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             tetRegisterPasswordSure.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
+
     @OnClick(R.id.btn_register_soon)
     public void onRegister() {
         if (RegexUtil.verifyUsername(username) != RegexUtil.VERIFY_SUCCESS) {
@@ -145,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @Override
     public void showLoading() {
         loadingDialog = new LoadingDialog();
-        loadingDialog.show(getSupportFragmentManager(),"loadingDialog");
+        loadingDialog.show(getSupportFragmentManager(), "loadingDialog");
     }
 
     @Override
@@ -156,6 +159,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @Override
     public void registerSuccess() {
         startActivity(new Intent(this, HomeActivity.class));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(WelcomeActivity.ACTION_WELCOME));
+        finish();
     }
 
     @Override

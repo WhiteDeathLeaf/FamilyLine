@@ -3,6 +3,9 @@ package com.galaxy_light.gzh.familyline.ui.presenter;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.galaxy_light.gzh.familyline.ui.view.RegisterView;
 
 /**
@@ -28,8 +31,15 @@ public class RegisterPresenter {
             public void done(AVException e) {
                 registerView.hideLoading();
                 if (e == null) {
-                    registerView.showMessage("注册成功");
-                    registerView.registerSuccess();
+                    AVIMClient.getInstance(AVUser.getCurrentUser()).open(new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVIMException e) {
+                            if (e == null) {
+                                registerView.showMessage("注册成功");
+                                registerView.registerSuccess();
+                            }
+                        }
+                    });
                 } else {
                     registerView.showMessage(e.getMessage());
                 }

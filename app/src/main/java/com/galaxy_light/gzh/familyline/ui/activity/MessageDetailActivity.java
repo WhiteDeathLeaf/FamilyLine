@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
@@ -67,6 +68,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
 
     private MessageBean messageBean;
     private String messageDetail;
+    private MessageDetailPresenter presenter;
 
     public static void fromMessage(Context context, MessageBean messageBean) {
         Intent intent = new Intent(context, MessageDetailActivity.class);
@@ -88,6 +90,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         messageBean = getIntent().getParcelableExtra(MESSAGE);
         initToolbar();
         initListener();
+        presenter = new MessageDetailPresenter(this);
     }
 
     private void initToolbar() {
@@ -132,7 +135,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @Override
     protected void onStart() {
         super.onStart();
-        new MessageDetailPresenter(this).requestMeesageDetailData();
+        presenter.requestMessageDetailData();
     }
 
     @OnCheckedChanged({R.id.cb_at_input, R.id.cb_et_input, R.id.cb_more})
@@ -187,6 +190,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
 
     @OnClick(R.id.btn_message_send)
     public void onSend() {
+        presenter.sendMessage("59be9338a0bb9f0064e24e55", messageDetail);
     }
 
     @OnTouch(R.id.rv_message_detail)
@@ -217,5 +221,10 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     public void setDetailAdapter(MessageDetailAdapter adapter) {
         rvMessageDetail.setLayoutManager(new LinearLayoutManager(this));
         rvMessageDetail.setAdapter(adapter);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

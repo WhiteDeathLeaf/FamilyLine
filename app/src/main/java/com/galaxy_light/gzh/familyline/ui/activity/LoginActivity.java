@@ -1,7 +1,9 @@
 package com.galaxy_light.gzh.familyline.ui.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -132,6 +134,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void loginSuccess() {
         startActivity(new Intent(this, HomeActivity.class));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(WelcomeActivity.ACTION_WELCOME));
+        finish();
     }
 
     @Override
