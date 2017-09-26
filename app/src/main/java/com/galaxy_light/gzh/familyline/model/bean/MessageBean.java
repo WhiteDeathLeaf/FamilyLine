@@ -9,16 +9,26 @@ import android.os.Parcelable;
  */
 
 public class MessageBean implements Parcelable {
-    private String username;
     private String imageUrl;
+    private String username;
+    private String id;
     private String lastMessage;
     private String lastTime;
 
-    public MessageBean(String username, String imageUrl, String lastMessage, String lastTime) {
-        this.username = username;
+    public MessageBean(String imageUrl, String username, String id, String lastMessage, String lastTime) {
         this.imageUrl = imageUrl;
+        this.username = username;
+        this.id = id;
         this.lastMessage = lastMessage;
         this.lastTime = lastTime;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getUsername() {
@@ -29,12 +39,12 @@ public class MessageBean implements Parcelable {
         this.username = username;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getId() {
+        return id;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLastMessage() {
@@ -60,20 +70,22 @@ public class MessageBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.username);
         dest.writeString(this.imageUrl);
+        dest.writeString(this.username);
+        dest.writeString(this.id);
         dest.writeString(this.lastMessage);
         dest.writeString(this.lastTime);
     }
 
     protected MessageBean(Parcel in) {
-        this.username = in.readString();
         this.imageUrl = in.readString();
+        this.username = in.readString();
+        this.id = in.readString();
         this.lastMessage = in.readString();
         this.lastTime = in.readString();
     }
 
-    public static final Parcelable.Creator<MessageBean> CREATOR = new Parcelable.Creator<MessageBean>() {
+    public static final Creator<MessageBean> CREATOR = new Creator<MessageBean>() {
         @Override
         public MessageBean createFromParcel(Parcel source) {
             return new MessageBean(source);

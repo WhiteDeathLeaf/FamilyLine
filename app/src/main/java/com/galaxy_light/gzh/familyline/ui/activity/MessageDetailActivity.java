@@ -23,8 +23,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.galaxy_light.gzh.familyline.R;
-import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
+import com.galaxy_light.gzh.familyline.model.bean.MessageDetailBean;
+import com.galaxy_light.gzh.familyline.model.bean.UserBean;
+import com.galaxy_light.gzh.familyline.receiver.BackgroundMessageHandler;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessageDetailPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
@@ -38,8 +45,8 @@ import butterknife.OnTouch;
 
 public class MessageDetailActivity extends AppCompatActivity implements MessageDetailView {
 
-    private static final String MESSAGE = "message";
-    private static final String CONTACT_DETAIL = "contact_detail";
+    private static final String USER = "user";
+    private static final String USER_ID = "user_id";
 
     @BindView(R.id.tv_message_detail)
     TextView tvMessageDetail;
@@ -66,19 +73,15 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @BindView(R.id.btn_message_send)
     Button btnMessageSend;
 
-    private MessageBean messageBean;
+    private UserBean userBean;
+    private String user_id;
     private String messageDetail;
     private MessageDetailPresenter presenter;
 
-    public static void fromMessage(Context context, MessageBean messageBean) {
+    public static void openMessage(Context context, UserBean userBean, String id) {
         Intent intent = new Intent(context, MessageDetailActivity.class);
-        intent.putExtra(MESSAGE, messageBean);
-        context.startActivity(intent);
-    }
-
-    public static void fromContactDetail(Context context, MessageBean messageBean) {
-        Intent intent = new Intent(context, MessageDetailActivity.class);
-        intent.putExtra(CONTACT_DETAIL, messageBean);
+        intent.putExtra(USER, userBean);
+        intent.putExtra(USER_ID, id);
         context.startActivity(intent);
     }
 
@@ -87,7 +90,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_detail);
         ButterKnife.bind(this);
-        messageBean = getIntent().getParcelableExtra(MESSAGE);
+        userBean = getIntent().getParcelableExtra(USER);
+        user_id = getIntent().getStringExtra(USER_ID);
         initToolbar();
         initListener();
         presenter = new MessageDetailPresenter(this);
@@ -96,7 +100,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     private void initToolbar() {
         setSupportActionBar(toolbarMessageDetail);
         if (getSupportActionBar() != null) {
-            tvMessageDetail.setText(messageBean.getUsername());
+            tvMessageDetail.setText(userBean.getUsername());
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -135,7 +139,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.requestMessageDetailData();
+        presenter.requestMessageDetailData(user_id);
+        AVIMMessageManager.registerMessageHandler(MessageDetailBean.class, new MessageDetailHandler());
     }
 
     @OnCheckedChanged({R.id.cb_at_input, R.id.cb_et_input, R.id.cb_more})
@@ -190,7 +195,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
 
     @OnClick(R.id.btn_message_send)
     public void onSend() {
-        presenter.sendMessage("59be9338a0bb9f0064e24e55", messageDetail);
+        presenter.sendMessage(userBean.getUsername(), user_id, messageDetail);
     }
 
     @OnTouch(R.id.rv_message_detail)
@@ -226,5 +231,17 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private class MessageDetailHandler extends AVIMMessageHandler {
+        //接收到消息后的处理逻辑
+        @Override
+        public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            presenter.acceptMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
+        }
+
+        public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+
+        }
     }
 }

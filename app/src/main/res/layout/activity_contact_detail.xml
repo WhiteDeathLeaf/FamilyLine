@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.galaxy_light.gzh.familyline.ui.activity.ContactDetailActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_contact_detail"
         android:layout_width="match_parent"
@@ -22,10 +23,32 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp_20" />
     </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:background="@drawable/bg_item_stroke"
+        android:layout_margin="@dimen/dp_10">
+        <ImageView
+            android:id="@+id/iv_contact_detail_avatar"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/tv_contact_detail_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_alignTop="@id/iv_contact_detail_avatar"
+            android:layout_toRightOf="@id/iv_contact_detail_avatar"/>
+    </RelativeLayout>
     <Button
         android:id="@+id/btn_sendMessage"
         style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="发消息" />
+        android:layout_height="@dimen/dp_60"
+        android:text="@string/send_message"
+        android:layout_margin="@dimen/dp_10"/>
 </LinearLayout>

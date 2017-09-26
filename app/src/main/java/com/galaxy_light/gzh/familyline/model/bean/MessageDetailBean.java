@@ -1,12 +1,13 @@
 package com.galaxy_light.gzh.familyline.model.bean;
 
+import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 /**
  * Created by gzh on 2017-9-22.
  */
 
-public class MessageDetailBean implements MultiItemEntity {
+public class MessageDetailBean extends AVIMMessage implements MultiItemEntity {
 
     public static final int OTHER = 1;
     public static final int MINE = 2;

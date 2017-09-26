@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.galaxy_light.gzh.familyline.R;
@@ -16,14 +19,23 @@ import butterknife.OnClick;
 
 public class ContactDetailActivity extends AppCompatActivity {
     private static final String CONTACT = "contact";
+    private static final String USERBEAN_ID = "id";
     @BindView(R.id.tv_contact_detail)
     TextView tvContactDetail;
     @BindView(R.id.toolbar_contact_detail)
     Toolbar toolbarContactDetail;
+    @BindView(R.id.iv_contact_detail_avatar)
+    ImageView ivContactDetailAvatar;
+    @BindView(R.id.tv_contact_detail_username)
+    TextView tvContactDetailUsername;
 
-    public static void fromContact(Context context, UserBean userBean) {
+    private UserBean userBean;
+    private String userbean_id;
+
+    public static void fromContact(Context context, UserBean userBean, String id) {
         Intent intent = new Intent(context, ContactDetailActivity.class);
         intent.putExtra(CONTACT, userBean);
+        intent.putExtra(USERBEAN_ID, id);
         context.startActivity(intent);
     }
 
@@ -32,10 +44,37 @@ public class ContactDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
         ButterKnife.bind(this);
+        userBean = getIntent().getParcelableExtra(CONTACT);
+        userbean_id = getIntent().getStringExtra(USERBEAN_ID);
+        initToolbar();
+        initView();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(toolbarContactDetail);
+        if (getSupportActionBar() != null) {
+            tvContactDetail.setText(getString(R.string.detail));
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void initView() {
+        ivContactDetailAvatar.setImageResource(R.drawable.ic_launcher);
+        tvContactDetailUsername.setText(userBean.getUsername());
     }
 
     @OnClick(R.id.btn_sendMessage)
     public void onViewClicked() {
+        MessageDetailActivity.openMessage(this, userBean, userbean_id);
+        finish();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

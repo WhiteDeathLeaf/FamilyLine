@@ -75,7 +75,7 @@ public class MessageFragment extends Fragment implements MessageView {
     }
 
     private BaseQuickAdapter.OnItemClickListener itemClickListener = (adapter, view, position) -> {
-        MessageDetailActivity.fromMessage(getContext(), (MessageBean) adapter.getData().get(position));
+//        MessageDetailActivity.openMessage(getContext(), (MessageBean) adapter.getData().get(position));
         ((HomeActivity) getActivity()).setCurrentPage(0);
     };
 
