@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -28,10 +29,9 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.galaxy_light.gzh.familyline.R;
-import com.galaxy_light.gzh.familyline.model.bean.MessageDetailBean;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
-import com.galaxy_light.gzh.familyline.receiver.BackgroundMessageHandler;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessageDetailPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
@@ -77,6 +77,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     private String user_id;
     private String messageDetail;
     private MessageDetailPresenter presenter;
+    private MessageDetailHandler detailHandler;
 
     public static void openMessage(Context context, UserBean userBean, String id) {
         Intent intent = new Intent(context, MessageDetailActivity.class);
@@ -95,6 +96,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         initToolbar();
         initListener();
         presenter = new MessageDetailPresenter(this);
+        detailHandler = new MessageDetailHandler();
+        presenter.requestMessageDetailData(userBean.getUsername());
     }
 
     private void initToolbar() {
@@ -139,8 +142,13 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.requestMessageDetailData(user_id);
-        AVIMMessageManager.registerMessageHandler(MessageDetailBean.class, new MessageDetailHandler());
+        AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, detailHandler);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, detailHandler);
     }
 
     @OnCheckedChanged({R.id.cb_at_input, R.id.cb_et_input, R.id.cb_more})
@@ -196,6 +204,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @OnClick(R.id.btn_message_send)
     public void onSend() {
         presenter.sendMessage(userBean.getUsername(), user_id, messageDetail);
+        tetMessageInput.setText(null);
     }
 
     @OnTouch(R.id.rv_message_detail)
@@ -237,7 +246,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         //接收到消息后的处理逻辑
         @Override
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-            presenter.acceptMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
+            int index = presenter.acceptMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
+            rvMessageDetail.smoothScrollToPosition(index);
         }
 
         public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {

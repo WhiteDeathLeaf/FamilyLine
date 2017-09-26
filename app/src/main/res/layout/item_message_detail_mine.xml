@@ -6,10 +6,18 @@
     android:gravity="end"
     android:orientation="horizontal">
 
-    <TextView
+    <com.galaxy_light.gzh.familyline.custom.view.BubbleTextView
         android:id="@+id/tv_content_mine"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:textColor="@android:color/black"
+        app:arrowWidth="8dp"
+        app:angle="8dp"
+        app:arrowHeight="10dp"
+        app:arrowPosition="14dp"
+        app:arrowLocation="right"
+        app:bubbleColor="@color/white" />
 
     <ImageView
         android:id="@+id/ivavatar"

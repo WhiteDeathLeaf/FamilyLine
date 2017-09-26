@@ -35,8 +35,8 @@ public class MessageDetailPresenter {
         this.messageDetailView.setDetailAdapter(adapter);
     }
 
-    public void requestMessageDetailData(String id) {
-        String conversationId = PrefManager.getConversationId(AVUser.getCurrentUser().getObjectId() + "&" + id);
+    public void requestMessageDetailData(String name) {
+        String conversationId = PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + name);
         if (conversationId != null) {
             AVIMClient.getInstance(AVUser.getCurrentUser()).getConversation(conversationId)
                     .queryMessages(new AVIMMessagesQueryCallback() {
@@ -86,8 +86,9 @@ public class MessageDetailPresenter {
                         });
     }
 
-    public void acceptMessage(String content) {
+    public int acceptMessage(String content) {
         adapter.addData(new MessageDetailBean(content, MessageDetailBean.OTHER));
         adapter.notifyDataSetChanged();
+        return adapter.getItemCount()-1;
     }
 }

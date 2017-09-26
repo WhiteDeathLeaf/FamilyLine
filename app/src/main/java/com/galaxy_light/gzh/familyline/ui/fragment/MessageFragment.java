@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
+import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import com.galaxy_light.gzh.familyline.ui.activity.HomeActivity;
 import com.galaxy_light.gzh.familyline.ui.activity.MessageDetailActivity;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
@@ -75,7 +76,9 @@ public class MessageFragment extends Fragment implements MessageView {
     }
 
     private BaseQuickAdapter.OnItemClickListener itemClickListener = (adapter, view, position) -> {
-//        MessageDetailActivity.openMessage(getContext(), (MessageBean) adapter.getData().get(position));
+        MessageBean messageBean = (MessageBean) adapter.getData().get(position);
+        UserBean userBean = new UserBean(messageBean.getImageUrl(), messageBean.getUsername(), messageBean.getId());
+        MessageDetailActivity.openMessage(getContext(), userBean, messageBean.getId());
         ((HomeActivity) getActivity()).setCurrentPage(0);
     };
 

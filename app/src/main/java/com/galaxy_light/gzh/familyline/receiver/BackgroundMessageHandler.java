@@ -42,7 +42,7 @@ public class BackgroundMessageHandler extends AVIMMessageHandler {
         Notification notification = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.logo)
                 .setTicker("您有新的FamilyLine消息")
-                .setContentTitle(message.getFrom())
+                .setContentTitle(username)
                 .setContentText(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2))
                 .setContentIntent(pendingIntent)
                 .build();
