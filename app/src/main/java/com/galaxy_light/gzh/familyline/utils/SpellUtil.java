@@ -6,7 +6,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 
 /**
- * 汉字转换位汉语拼音，英文字符不变
+ * 汉字转换汉语拼音，英文字符不变
  * Created by gzh on 2017-9-21.
  */
 public class SpellUtil {

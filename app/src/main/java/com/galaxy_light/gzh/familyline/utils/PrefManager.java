@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * SharedPreferences工具类
  * Created by gzh on 2017-9-26.
  */
 

@@ -242,12 +242,16 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void moveToLast(int position) {
+        rvMessageDetail.scrollToPosition(position);
+    }
+
     private class MessageDetailHandler extends AVIMMessageHandler {
         //接收到消息后的处理逻辑
         @Override
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-            int index = presenter.acceptMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
-            rvMessageDetail.smoothScrollToPosition(index);
+            presenter.acceptMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
         }
 
         public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {

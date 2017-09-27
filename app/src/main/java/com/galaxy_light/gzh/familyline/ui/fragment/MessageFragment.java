@@ -9,6 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
@@ -20,6 +28,8 @@ import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessagePresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageView;
 import com.galaxy_light.gzh.familyline.utils.PopupManager;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,19 +45,30 @@ public class MessageFragment extends Fragment implements MessageView {
     RecyclerView rvMessage;
     Unbinder unbinder;
     private LoadingDialog loadingDialog;
+    private MessagePresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_home_message, container, false);
         unbinder = ButterKnife.bind(this, view);
+        presenter = new MessagePresenter(this);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        new MessagePresenter(this).requestMessageData();
+        AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler());
+        if (((MessageAdapter) (rvMessage.getAdapter())).getData().size() <= 0) {
+            presenter.requestMessageData();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler());
     }
 
     @Override
@@ -80,6 +101,7 @@ public class MessageFragment extends Fragment implements MessageView {
         UserBean userBean = new UserBean(messageBean.getImageUrl(), messageBean.getUsername(), messageBean.getId());
         MessageDetailActivity.openMessage(getContext(), userBean, messageBean.getId());
         ((HomeActivity) getActivity()).setCurrentPage(0);
+        view.findViewById(R.id.iv_message_tip).setVisibility(View.GONE);
     };
 
     private BaseQuickAdapter.OnItemLongClickListener itemLongClickListener = (adapter, view, position) -> {
@@ -99,4 +121,23 @@ public class MessageFragment extends Fragment implements MessageView {
         });
         return true;
     };
+
+    private class MessageFragmentHandler extends AVIMMessageHandler {
+
+        @Override
+        public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            List<MessageBean> data = ((MessageAdapter) (rvMessage.getAdapter())).getData();
+            String username = conversation.getName().replace(AVUser.getCurrentUser().getUsername(), "").replace("&", "");
+            if (data.size() <= 0) {
+                presenter.acceptNewMessage(message, conversation);
+            } else {
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).getUsername().equals(username)) {
+                        return;
+                    }
+                }
+                presenter.acceptNewMessage(message, conversation);
+            }
+        }
+    }
 }

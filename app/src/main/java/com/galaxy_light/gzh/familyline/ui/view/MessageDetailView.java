@@ -10,4 +10,6 @@ public interface MessageDetailView {
     void setDetailAdapter(MessageDetailAdapter adapter);
 
     void showMessage(String message);
+
+    void moveToLast(int position);
 }

@@ -38,7 +38,7 @@ public class ContactAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder> {
         }
         if (!TextUtils.isEmpty(item.getImageUrl())) {
             //设置用户头像
-            Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.iv_message_avatar));
+            Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.iv_contact_avatar));
         } else {
             helper.setImageResource(R.id.iv_contact_avatar, R.drawable.ic_launcher);
         }

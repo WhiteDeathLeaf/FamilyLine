@@ -34,24 +34,30 @@ public class ContactPresenter {
         if (userBeen == null) {
             userBeen = new ArrayList<>();
         }
+        final String[] avatar = {""};
         AVQuery<AVUser> followeeQuery = AVUser.followeeQuery(AVUser.getCurrentUser().getObjectId(), AVUser.class);
         followeeQuery.include("followee");
         followeeQuery.findInBackground(new FindCallback<AVUser>() {
             @Override
             public void done(List<AVUser> list, AVException e) {
                 if (e == null) {
+                    if (list == null || list.size() <= 0) return;
                     for (AVUser user : list) {
-                        userBeen.add(new UserBean("", user.getUsername(), user.getObjectId()));
+                        new Thread(() -> {
+                            avatar[0] = user.getAVFile("avatar").getUrl();
+                            Log.e("TAG",avatar[0]);
+                        }).start();
+                        userBeen.add(new UserBean(avatar[0], user.getUsername(), user.getObjectId()));
                     }
                     Collections.sort(userBeen);
                     if (adapter == null) {
                         adapter = new ContactAdapter(R.layout.item_home_contact, userBeen);
                         contactView.setAdapter(adapter);
                     }
-                    contactView.hideLoading();
                 }
             }
         });
+        contactView.hideLoading();
     }
 
 }

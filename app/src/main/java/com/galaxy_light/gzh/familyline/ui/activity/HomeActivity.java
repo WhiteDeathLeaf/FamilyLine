@@ -183,4 +183,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public void setCurrentPage(int page) {
         currentPage = page;
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

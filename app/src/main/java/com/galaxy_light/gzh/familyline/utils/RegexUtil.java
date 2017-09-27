@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  * 正则表达式工具，用来校验账号和密码等是否符合基本规则
+ * Created by gzh on 2017-9-20.
  */
 public class RegexUtil {
 

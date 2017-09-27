@@ -54,6 +54,7 @@ public class MessageDetailPresenter {
                                     }
                                 }
                                 adapter.notifyDataSetChanged();
+                                messageDetailView.moveToLast(adapter.getData().size() - 1);
                             }
                         }
                     });
@@ -72,6 +73,7 @@ public class MessageDetailPresenter {
                                     message.setText(content);
                                     adapter.addData(new MessageDetailBean(content, MessageDetailBean.MINE));
                                     adapter.notifyDataSetChanged();
+                                    messageDetailView.moveToLast(adapter.getData().size() - 1);
                                     avimConversation.sendMessage(message, new AVIMConversationCallback() {
                                         @Override
                                         public void done(AVIMException e) {
@@ -86,9 +88,9 @@ public class MessageDetailPresenter {
                         });
     }
 
-    public int acceptMessage(String content) {
+    public void acceptMessage(String content) {
         adapter.addData(new MessageDetailBean(content, MessageDetailBean.OTHER));
         adapter.notifyDataSetChanged();
-        return adapter.getItemCount()-1;
+        messageDetailView.moveToLast(adapter.getData().size() - 1);
     }
 }
