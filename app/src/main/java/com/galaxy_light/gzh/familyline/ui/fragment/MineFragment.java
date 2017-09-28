@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +35,8 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_home_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
+        tvMineUsername.setText(FamilyLineUser.getCurrentUser().getUsername());
+        Glide.with(getContext()).load(((FamilyLineUser) (FamilyLineUser.getCurrentUser())).getAvatar().getUrl()).into(ivMineAvatar);
         return view;
     }
 

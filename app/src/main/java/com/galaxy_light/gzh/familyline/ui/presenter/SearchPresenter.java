@@ -3,10 +3,10 @@ package com.galaxy_light.gzh.familyline.ui.presenter;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.FollowCallback;
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.SearchAdapter;
 import com.galaxy_light.gzh.familyline.ui.view.SearchView;
@@ -34,11 +34,11 @@ public class SearchPresenter {
             userBeen = new ArrayList<>();
         }
         userBeen.clear();
-        AVQuery<AVUser> avQuery = new AVQuery<>("_User");
+        AVQuery<FamilyLineUser> avQuery = new AVQuery<>("_User");
         avQuery.whereMatches("username", username);
-        avQuery.findInBackground(new FindCallback<AVUser>() {
+        avQuery.findInBackground(new FindCallback<FamilyLineUser>() {
             @Override
-            public void done(List<AVUser> list, AVException e) {
+            public void done(List<FamilyLineUser> list, AVException e) {
                 searchView.hideLoading();
                 if (e == null) {
                     if (list.size() <= 0) {
@@ -49,8 +49,15 @@ public class SearchPresenter {
                         }
                         return;
                     }
-                    for (AVUser user : list) {
-                        userBeen.add(new UserBean("", user.getUsername(), user.getObjectId()));
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getUsername().equals(FamilyLineUser.getCurrentUser().getUsername())) {
+                            list.remove(i);
+                        } else {
+                            userBeen.add(new UserBean(list.get(i).getAvatar().getUrl(), list.get(i).getUsername(), list.get(i).getObjectId()));
+                        }
+                    }
+                    if (userBeen.size() <= 0) {
+                        searchView.showMessage("没有找到符合条件的用户哦！");
                     }
                     if (adapter == null) {
                         adapter = new SearchAdapter(R.layout.item_search, userBeen);
@@ -65,7 +72,7 @@ public class SearchPresenter {
     }
 
     public void addFiend(String id) {
-        AVUser.getCurrentUser().followInBackground(id, new FollowCallback() {
+        FamilyLineUser.getCurrentUser().followInBackground(id, new FollowCallback() {
             @Override
             public void done(AVObject avObject, AVException e) {
 

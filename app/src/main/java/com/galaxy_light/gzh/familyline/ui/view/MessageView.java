@@ -9,6 +9,10 @@ import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
 
 public interface MessageView {
     void showLoading();
+
     void hideLoading();
+
     void setAdapter(MessageAdapter adapter);
+
+    void messageTip(MessageAdapter adapter,int position);
 }

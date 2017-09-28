@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -35,6 +34,8 @@ import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessageDetailPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
+import com.galaxy_light.gzh.familyline.utils.ContentUtil;
+import com.galaxy_light.gzh.familyline.utils.DateUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +48,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
 
     private static final String USER = "user";
     private static final String USER_ID = "user_id";
+    private static final String CONVERSATION_ID = "conversation_ID";
 
     @BindView(R.id.tv_message_detail)
     TextView tvMessageDetail;
@@ -75,14 +77,16 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
 
     private UserBean userBean;
     private String user_id;
+    private String conversationID;
     private String messageDetail;
     private MessageDetailPresenter presenter;
     private MessageDetailHandler detailHandler;
 
-    public static void openMessage(Context context, UserBean userBean, String id) {
+    public static void openMessage(Context context, UserBean userBean, String id, String conversationID) {
         Intent intent = new Intent(context, MessageDetailActivity.class);
         intent.putExtra(USER, userBean);
         intent.putExtra(USER_ID, id);
+        intent.putExtra(CONVERSATION_ID, conversationID);
         context.startActivity(intent);
     }
 
@@ -93,11 +97,12 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         ButterKnife.bind(this);
         userBean = getIntent().getParcelableExtra(USER);
         user_id = getIntent().getStringExtra(USER_ID);
+        conversationID = getIntent().getStringExtra(CONVERSATION_ID);
         initToolbar();
         initListener();
-        presenter = new MessageDetailPresenter(this);
+        presenter = new MessageDetailPresenter(this, userBean.getImageUrl());
         detailHandler = new MessageDetailHandler();
-        presenter.requestMessageDetailData(userBean.getUsername());
+        presenter.requestMessageDetailData(userBean.getUsername(), conversationID);
     }
 
     private void initToolbar() {
@@ -205,6 +210,11 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     public void onSend() {
         presenter.sendMessage(userBean.getUsername(), user_id, messageDetail);
         tetMessageInput.setText(null);
+        Intent intent = new Intent();
+        intent.putExtra("conversationId", conversationID);
+        intent.putExtra("lastMessage", messageDetail);
+        intent.putExtra("lastTime", DateUtil.formatDate(System.currentTimeMillis()));
+        setResult(RESULT_OK, intent);
     }
 
     @OnTouch(R.id.rv_message_detail)
@@ -251,7 +261,14 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         //接收到消息后的处理逻辑
         @Override
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-            presenter.acceptMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
+            if (message.getConversationId().equals(conversationID)) {
+                presenter.acceptMessage(ContentUtil.subContent(message.getContent()));
+                Intent intent = new Intent();
+                intent.putExtra("conversationId", conversationID);
+                intent.putExtra("lastMessage", ContentUtil.subContent(message.getContent()));
+                intent.putExtra("lastTime", DateUtil.formatDate(conversation.getLastMessageAt()));
+                setResult(RESULT_OK, intent);
+            }
         }
 
         public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {

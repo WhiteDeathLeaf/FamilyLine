@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
+import com.bumptech.glide.Glide;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
+import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,13 +62,17 @@ public class ContactDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        ivContactDetailAvatar.setImageResource(R.drawable.ic_launcher);
         tvContactDetailUsername.setText(userBean.getUsername());
+        Glide.with(this).load(userBean.getImageUrl()).into(ivContactDetailAvatar);
     }
 
     @OnClick(R.id.btn_sendMessage)
     public void onViewClicked() {
-        MessageDetailActivity.openMessage(this, userBean, userbean_id);
+        String conversationID = null;
+        if (PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + userBean.getUsername()) != null) {
+            conversationID = PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + userBean.getUsername());
+        }
+        MessageDetailActivity.openMessage(this, userBean, userbean_id, conversationID);
         finish();
     }
 

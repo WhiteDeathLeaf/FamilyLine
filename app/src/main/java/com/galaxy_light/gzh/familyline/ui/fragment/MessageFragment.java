@@ -1,5 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
@@ -27,13 +26,14 @@ import com.galaxy_light.gzh.familyline.ui.activity.MessageDetailActivity;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessagePresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageView;
+import com.galaxy_light.gzh.familyline.utils.NotifyManager;
 import com.galaxy_light.gzh.familyline.utils.PopupManager;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 消息Fragment
@@ -96,13 +96,34 @@ public class MessageFragment extends Fragment implements MessageView {
         rvMessage.setAdapter(adapter);
     }
 
+    @Override
+    public void messageTip(MessageAdapter adapter, int position) {
+        View tipView = adapter.getViewByPosition(rvMessage, position, R.id.iv_message_tip);
+        if (tipView != null) {
+            tipView.setVisibility(View.VISIBLE);
+        }
+    }
+
     private BaseQuickAdapter.OnItemClickListener itemClickListener = (adapter, view, position) -> {
         MessageBean messageBean = (MessageBean) adapter.getData().get(position);
         UserBean userBean = new UserBean(messageBean.getImageUrl(), messageBean.getUsername(), messageBean.getId());
-        MessageDetailActivity.openMessage(getContext(), userBean, messageBean.getId());
+//        MessageDetailActivity.openMessage(getContext(), userBean, messageBean.getId(), messageBean.getConversationID());
+        Intent intent = new Intent(getContext(), MessageDetailActivity.class);
+        intent.putExtra("user", userBean);
+        intent.putExtra("user_id", userBean.getId());
+        intent.putExtra("conversation_ID", messageBean.getConversationID());
+        startActivityForResult(intent, 100);
         ((HomeActivity) getActivity()).setCurrentPage(0);
         view.findViewById(R.id.iv_message_tip).setVisibility(View.GONE);
+        NotifyManager.getInstance(getContext()).clear();
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            presenter.refresh(data.getStringExtra("conversationId"), data.getStringExtra("lastMessage"), data.getStringExtra("lastTime"));
+        }
+    }
 
     private BaseQuickAdapter.OnItemLongClickListener itemLongClickListener = (adapter, view, position) -> {
         PopupManager.getInstance().createMultiMenu(view, R.layout.popup_message_item, PopupManager.SIZE_WRAP, new int[]{R.id.tv_popup_delete, R.id.tv_popup_top}, v -> {
@@ -126,18 +147,7 @@ public class MessageFragment extends Fragment implements MessageView {
 
         @Override
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-            List<MessageBean> data = ((MessageAdapter) (rvMessage.getAdapter())).getData();
-            String username = conversation.getName().replace(AVUser.getCurrentUser().getUsername(), "").replace("&", "");
-            if (data.size() <= 0) {
-                presenter.acceptNewMessage(message, conversation);
-            } else {
-                for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getUsername().equals(username)) {
-                        return;
-                    }
-                }
-                presenter.acceptNewMessage(message, conversation);
-            }
+            presenter.acceptNewMessage(getContext(), message, conversation);
         }
     }
 }

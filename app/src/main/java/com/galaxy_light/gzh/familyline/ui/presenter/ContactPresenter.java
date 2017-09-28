@@ -1,12 +1,11 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
-import android.util.Log;
-
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.ContactAdapter;
 import com.galaxy_light.gzh.familyline.ui.view.ContactView;
@@ -34,20 +33,15 @@ public class ContactPresenter {
         if (userBeen == null) {
             userBeen = new ArrayList<>();
         }
-        final String[] avatar = {""};
-        AVQuery<AVUser> followeeQuery = AVUser.followeeQuery(AVUser.getCurrentUser().getObjectId(), AVUser.class);
+        AVQuery<FamilyLineUser> followeeQuery = AVUser.followeeQuery(FamilyLineUser.getCurrentUser().getObjectId(), FamilyLineUser.class);
         followeeQuery.include("followee");
-        followeeQuery.findInBackground(new FindCallback<AVUser>() {
+        followeeQuery.findInBackground(new FindCallback<FamilyLineUser>() {
             @Override
-            public void done(List<AVUser> list, AVException e) {
+            public void done(List<FamilyLineUser> list, AVException e) {
                 if (e == null) {
                     if (list == null || list.size() <= 0) return;
-                    for (AVUser user : list) {
-                        new Thread(() -> {
-                            avatar[0] = user.getAVFile("avatar").getUrl();
-                            Log.e("TAG",avatar[0]);
-                        }).start();
-                        userBeen.add(new UserBean(avatar[0], user.getUsername(), user.getObjectId()));
+                    for (FamilyLineUser user : list) {
+                        userBeen.add(new UserBean(user.getAvatar().getUrl(), user.getUsername(), user.getObjectId()));
                     }
                     Collections.sort(userBeen);
                     if (adapter == null) {

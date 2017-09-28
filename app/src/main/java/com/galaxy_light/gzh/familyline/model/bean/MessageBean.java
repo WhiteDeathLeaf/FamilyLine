@@ -14,13 +14,15 @@ public class MessageBean implements Parcelable {
     private String id;
     private String lastMessage;
     private String lastTime;
+    private String conversationID;
 
-    public MessageBean(String imageUrl, String username, String id, String lastMessage, String lastTime) {
+    public MessageBean(String imageUrl, String username, String id, String lastMessage, String lastTime, String conversationID) {
         this.imageUrl = imageUrl;
         this.username = username;
         this.id = id;
         this.lastMessage = lastMessage;
         this.lastTime = lastTime;
+        this.conversationID = conversationID;
     }
 
     public String getImageUrl() {
@@ -61,6 +63,14 @@ public class MessageBean implements Parcelable {
 
     public void setLastTime(String lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public String getConversationID() {
+        return conversationID;
+    }
+
+    public void setConversationID(String conversationID) {
+        this.conversationID = conversationID;
     }
 
     @Override

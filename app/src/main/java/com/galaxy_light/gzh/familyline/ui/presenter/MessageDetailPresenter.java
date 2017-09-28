@@ -16,10 +16,10 @@ import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
+ * 消息详情Presenter
  * Created by gzh on 2017-9-22.
  */
 
@@ -28,37 +28,46 @@ public class MessageDetailPresenter {
     private List<MessageDetailBean> messageDetailBeen;
     private MessageDetailAdapter adapter;
 
-    public MessageDetailPresenter(MessageDetailView messageDetailView) {
+    public MessageDetailPresenter(MessageDetailView messageDetailView, String avatar) {
         this.messageDetailView = messageDetailView;
         this.messageDetailBeen = new ArrayList<>();
         this.adapter = new MessageDetailAdapter(messageDetailBeen);
+        this.adapter.setAvatar(avatar);
         this.messageDetailView.setDetailAdapter(adapter);
     }
 
-    public void requestMessageDetailData(String name) {
-        String conversationId = PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + name);
-        if (conversationId != null) {
-            AVIMClient.getInstance(AVUser.getCurrentUser()).getConversation(conversationId)
-                    .queryMessages(new AVIMMessagesQueryCallback() {
-                        @Override
-                        public void done(List<AVIMMessage> list, AVIMException e) {
-                            if (e == null) {
-                                if (list == null || list.size() <= 0) return;
-                                for (AVIMMessage message : list) {
-                                    String content = message.getContent();
-                                    String messageContent = content.substring(content.lastIndexOf(":") + 2, content.length() - 2);
-                                    if (message.getFrom().equals(AVUser.getCurrentUser().getObjectId())) {
-                                        adapter.addData(new MessageDetailBean(messageContent, MessageDetailBean.MINE));
-                                    } else {
-                                        adapter.addData(new MessageDetailBean(messageContent, MessageDetailBean.OTHER));
-                                    }
-                                }
-                                adapter.notifyDataSetChanged();
-                                messageDetailView.moveToLast(adapter.getData().size() - 1);
-                            }
-                        }
-                    });
+    public void requestMessageDetailData(String name, String conversationID) {
+        if (conversationID != null) {
+            queryMessage(conversationID);
+        } else {
+            String conversationId = PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + name);
+            if (conversationId != null) {
+                queryMessage(conversationId);
+            }
         }
+    }
+
+    private void queryMessage(String conversationID) {
+        AVIMClient.getInstance(AVUser.getCurrentUser()).getConversation(conversationID)
+                .queryMessages(new AVIMMessagesQueryCallback() {
+                    @Override
+                    public void done(List<AVIMMessage> list, AVIMException e) {
+                        if (e == null) {
+                            if (list == null || list.size() <= 0) return;
+                            for (AVIMMessage message : list) {
+                                String content = message.getContent();
+                                String messageContent = content.substring(content.lastIndexOf(":") + 2, content.length() - 2);
+                                if (message.getFrom().equals(AVUser.getCurrentUser().getObjectId())) {
+                                    adapter.addData(new MessageDetailBean(messageContent, MessageDetailBean.MINE));
+                                } else {
+                                    adapter.addData(new MessageDetailBean(messageContent, MessageDetailBean.OTHER));
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                            messageDetailView.moveToLast(adapter.getData().size() - 1);
+                        }
+                    }
+                });
     }
 
     public void sendMessage(String username, String id, String content) {

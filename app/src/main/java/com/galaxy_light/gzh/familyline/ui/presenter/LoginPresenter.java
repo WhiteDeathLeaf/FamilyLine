@@ -6,6 +6,7 @@ import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.ui.view.LoginView;
 
 /**
@@ -22,24 +23,25 @@ public class LoginPresenter {
 
     public void login(String username, String password) {
         loginView.showLoading();
-        AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
+        AVUser.logInInBackground(username, password, new LogInCallback<FamilyLineUser>() {
             @Override
-            public void done(AVUser avUser, AVException e) {
-                loginView.hideLoading();
+            public void done(FamilyLineUser user, AVException e) {
                 if (e == null) {
-                    AVIMClient.getInstance(AVUser.getCurrentUser()).open(new AVIMClientCallback() {
+                    AVIMClient.getInstance(user).open(new AVIMClientCallback() {
                         @Override
                         public void done(AVIMClient avimClient, AVIMException e) {
                             if (e == null) {
+                                loginView.hideLoading();
                                 loginView.showMessage("登陆成功");
                                 loginView.loginSuccess();
                             }
                         }
                     });
                 } else {
+                    loginView.hideLoading();
                     loginView.showMessage(e.getMessage());
                 }
             }
-        });
+        }, FamilyLineUser.class);
     }
 }

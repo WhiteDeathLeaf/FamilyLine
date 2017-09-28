@@ -20,7 +20,7 @@
         app:bubbleColor="@color/white" />
 
     <ImageView
-        android:id="@+id/ivavatar"
+        android:id="@+id/iv_avatar_mine"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:src="@drawable/ic_launcher" />
