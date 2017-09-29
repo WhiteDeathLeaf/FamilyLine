@@ -209,19 +209,19 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     @OnClick(R.id.btn_message_send)
     public void onSend() {
         presenter.sendMessage(userBean.getUsername(), user_id, messageDetail);
-        tetMessageInput.setText(null);
         Intent intent = new Intent();
         intent.putExtra("conversationId", conversationID);
         intent.putExtra("lastMessage", messageDetail);
         intent.putExtra("lastTime", DateUtil.formatDate(System.currentTimeMillis()));
-        setResult(RESULT_OK, intent);
+        setResult(1000, intent);
+        tetMessageInput.setText(null);
     }
 
     @OnTouch(R.id.rv_message_detail)
     public boolean onTouch() {
         tetMessageInput.clearFocus();
         messageDetailBottom.setVisibility(View.GONE);
-        return true;
+        return false;//让事件继续传递;
     }
 
     @OnFocusChange(R.id.tet_message_input)
@@ -263,16 +263,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
             if (message.getConversationId().equals(conversationID)) {
                 presenter.acceptMessage(ContentUtil.subContent(message.getContent()));
-                Intent intent = new Intent();
-                intent.putExtra("conversationId", conversationID);
-                intent.putExtra("lastMessage", ContentUtil.subContent(message.getContent()));
-                intent.putExtra("lastTime", DateUtil.formatDate(conversation.getLastMessageAt()));
-                setResult(RESULT_OK, intent);
             }
-        }
-
-        public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-
         }
     }
 }

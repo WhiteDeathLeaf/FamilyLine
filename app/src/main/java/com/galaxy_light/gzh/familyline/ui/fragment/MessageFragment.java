@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,11 @@ import com.galaxy_light.gzh.familyline.ui.presenter.MessagePresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageView;
 import com.galaxy_light.gzh.familyline.utils.NotifyManager;
 import com.galaxy_light.gzh.familyline.utils.PopupManager;
+import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * 消息Fragment
@@ -120,20 +120,22 @@ public class MessageFragment extends Fragment implements MessageView {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100 && resultCode == RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == 1000) {
             presenter.refresh(data.getStringExtra("conversationId"), data.getStringExtra("lastMessage"), data.getStringExtra("lastTime"));
         }
     }
 
     private BaseQuickAdapter.OnItemLongClickListener itemLongClickListener = (adapter, view, position) -> {
         PopupManager.getInstance().createMultiMenu(view, R.layout.popup_message_item, PopupManager.SIZE_WRAP, new int[]{R.id.tv_popup_delete, R.id.tv_popup_top}, v -> {
+            MessageBean currentBean = (MessageBean) adapter.getData().get(position);
             switch (v.getId()) {
                 case R.id.tv_popup_delete://删除
+                    PrefManager.removeConversationId(currentBean.getUsername());
                     adapter.getData().remove(position);
                     adapter.notifyDataSetChanged();
                     break;
                 case R.id.tv_popup_top://置顶
-                    MessageBean currentBean = (MessageBean) adapter.getData().get(position);
                     adapter.getData().remove(position);
                     adapter.getData().add(0, currentBean);
                     adapter.notifyDataSetChanged();

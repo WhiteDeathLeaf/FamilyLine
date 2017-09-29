@@ -18,13 +18,10 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.avos.avoscloud.AVUser;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.ui.adapter.HomeViewPagerAdapter;
-import com.galaxy_light.gzh.familyline.ui.fragment.MessageFragment;
 import com.galaxy_light.gzh.familyline.ui.presenter.HomePresenter;
 import com.galaxy_light.gzh.familyline.ui.view.HomeView;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindArray;
 import butterknife.BindView;
@@ -96,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private BottomNavigationBar.OnTabSelectedListener tabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
         @Override
         public void onTabSelected(int position) {
-            viewPager.setCurrentItem(position);
+            viewPager.setCurrentItem(position,false);
             tvHome.setText(navigation_title[position]);
         }
 
@@ -130,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     protected void onStart() {
         super.onStart();
-        viewPager.setCurrentItem(currentPage);
+        viewPager.setCurrentItem(currentPage,false);
     }
 
     @Override

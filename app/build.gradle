@@ -63,4 +63,6 @@ dependencies {
     compile 'com.belerweb:pinyin4j:2.5.1'
     testCompile 'junit:junit:4.12'
     compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.github.yalantis:ucrop:2.2.1-native'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

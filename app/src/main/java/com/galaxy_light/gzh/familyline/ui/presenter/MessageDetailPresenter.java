@@ -12,6 +12,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.galaxy_light.gzh.familyline.model.bean.MessageDetailBean;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
+import com.galaxy_light.gzh.familyline.utils.ContentUtil;
 import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class MessageDetailPresenter {
         if (conversationID != null) {
             queryMessage(conversationID);
         } else {
-            String conversationId = PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + name);
+            String conversationId = PrefManager.getConversationId(name);
             if (conversationId != null) {
                 queryMessage(conversationId);
             }
@@ -55,8 +56,7 @@ public class MessageDetailPresenter {
                         if (e == null) {
                             if (list == null || list.size() <= 0) return;
                             for (AVIMMessage message : list) {
-                                String content = message.getContent();
-                                String messageContent = content.substring(content.lastIndexOf(":") + 2, content.length() - 2);
+                                String messageContent = ContentUtil.subContent(message.getContent());
                                 if (message.getFrom().equals(AVUser.getCurrentUser().getObjectId())) {
                                     adapter.addData(new MessageDetailBean(messageContent, MessageDetailBean.MINE));
                                 } else {
@@ -90,7 +90,7 @@ public class MessageDetailPresenter {
                                                 messageDetailView.showMessage("发送成功");
                                         }
                                     });
-                                    PrefManager.saveConversationId(avimConversation.getName(), avimConversation.getConversationId());
+                                    PrefManager.saveConversationId(username, avimConversation.getConversationId());
                                     PrefManager.saveAllId(avimConversation.getConversationId());
                                 }
                             }

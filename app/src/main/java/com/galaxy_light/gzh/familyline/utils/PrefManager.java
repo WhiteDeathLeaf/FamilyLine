@@ -42,4 +42,9 @@ public class PrefManager {
     public static Set<String> getAllId() {
         return preferences.getStringSet(CONVERSATION_ID, null);
     }
+
+    public static void removeConversationId(String name) {
+        editor.remove(name);
+        editor.commit();
+    }
 }

@@ -1,6 +1,7 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -51,11 +52,9 @@ public class MessagePresenter {
         if (allId != null) {
             for (String id : allId) {
                 AVIMConversation conversation = AVIMClient.getInstance(userId).getConversation(id);
-                AVIMMessage message = conversation.getLastMessage();
-                String content = message.getContent();
-                String lastMessage = content.substring(content.lastIndexOf(":") + 2, content.length() - 2);
+                String lastMessage = ContentUtil.subContent(conversation.getLastMessage().getContent());
                 String lastTime = DateUtil.formatDate(conversation.getLastMessageAt());
-                String username = conversation.getName().replace(FamilyLineUser.getCurrentUser().getUsername(), "").replace("&", "");
+                String username = ContentUtil.replaceContent(conversation.getName());
                 List<String> members = conversation.getMembers();
                 for (String innerId : members) {
                     if (!innerId.equals(userId)) {
@@ -78,7 +77,7 @@ public class MessagePresenter {
     public void acceptNewMessage(Context context, AVIMMessage message, AVIMConversation conversation) {
         for (int i = 0; i < adapter.getData().size(); i++) {
             if (adapter.getData().get(i).getConversationID().equals(message.getConversationId())) {
-                adapter.getData().get(i).setLastMessage(message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2));
+                adapter.getData().get(i).setLastMessage(ContentUtil.subContent(message.getContent()));
                 adapter.getData().get(i).setLastTime(DateUtil.formatDate(conversation.getLastMessageAt()));
                 messageView.messageTip(adapter, i);
                 adapter.notifyDataSetChanged();
@@ -97,14 +96,16 @@ public class MessagePresenter {
                 String content = message.getContent().substring(message.getContent().lastIndexOf(":") + 2, message.getContent().length() - 2);
                 String time = DateUtil.formatDate(conversation.getLastMessageAt());
                 String conversationId = message.getConversationId();
-                adapter.addData(0, new MessageBean(avatar, username, id, content, time, conversationId));
-                messageView.messageTip(adapter, 0);
-                adapter.notifyDataSetChanged();
-                PrefManager.saveConversationId(username, conversationId);
-                PrefManager.saveAllId(conversationId);
-                NotifyManager.getInstance(context)
-                        .setPending(avatar, username, id, conversationId)
-                        .buildMessageTip(username, content);
+                if (PrefManager.getConversationId(username) == null) {
+                    adapter.addData(0, new MessageBean(avatar, username, id, content, time, conversationId));
+                    messageView.messageTip(adapter, 0);
+                    adapter.notifyDataSetChanged();
+                    PrefManager.saveConversationId(username, conversationId);
+                    PrefManager.saveAllId(conversationId);
+                    NotifyManager.getInstance(context)
+                            .setPending(avatar, username, id, conversationId)
+                            .buildMessageTip(username, content);
+                }
             }
         });
     }

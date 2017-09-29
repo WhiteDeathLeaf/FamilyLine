@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="end"
+    android:padding="@dimen/dp_10"
     android:orientation="horizontal">
 
     <com.galaxy_light.gzh.familyline.custom.view.BubbleTextView
@@ -11,7 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_40"
         android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_16"
         app:arrowWidth="8dp"
         app:angle="8dp"
         app:arrowHeight="10dp"

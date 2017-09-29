@@ -14,5 +14,5 @@ public interface MessageView {
 
     void setAdapter(MessageAdapter adapter);
 
-    void messageTip(MessageAdapter adapter,int position);
+    void messageTip(MessageAdapter adapter, int position);
 }

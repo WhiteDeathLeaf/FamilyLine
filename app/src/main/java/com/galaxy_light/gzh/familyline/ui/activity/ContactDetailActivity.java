@@ -69,8 +69,8 @@ public class ContactDetailActivity extends AppCompatActivity {
     @OnClick(R.id.btn_sendMessage)
     public void onViewClicked() {
         String conversationID = null;
-        if (PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + userBean.getUsername()) != null) {
-            conversationID = PrefManager.getConversationId(AVUser.getCurrentUser().getUsername() + "&" + userBean.getUsername());
+        if (PrefManager.getConversationId(userBean.getUsername()) != null) {
+            conversationID = PrefManager.getConversationId(userBean.getUsername());
         }
         MessageDetailActivity.openMessage(this, userBean, userbean_id, conversationID);
         finish();
