@@ -18,9 +18,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         SplashHandler handler = new SplashHandler(this);
         if (AVUser.getCurrentUser() != null) {
-            handler.sendEmptyMessageDelayed(0, 2000);
+            handler.sendEmptyMessageDelayed(0, 1500);
         } else {
-            handler.sendEmptyMessageDelayed(1, 2000);
+            handler.sendEmptyMessageDelayed(1, 1500);
         }
     }
 

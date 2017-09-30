@@ -1,7 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.adapter;
 
 import android.text.TextUtils;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -11,6 +10,8 @@ import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.model.bean.MessageDetailBean;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 消息详情Adapter
@@ -38,12 +39,12 @@ public class MessageDetailAdapter extends BaseMultiItemQuickAdapter<MessageDetai
         switch (helper.getItemViewType()) {
             case MessageDetailBean.OTHER:
                 if (!TextUtils.isEmpty(avatar)) {
-                    Glide.with(mContext).load(avatar).into((ImageView) helper.getView(R.id.iv_avatar_other));
+                    Glide.with(mContext).load(avatar).into((CircleImageView) helper.getView(R.id.iv_avatar_other));
                 }
                 helper.setText(R.id.tv_content_other, item.getMessageContent());
                 break;
             case MessageDetailBean.MINE:
-                Glide.with(mContext).load(user.getAvatar().getUrl()).into((ImageView) helper.getView(R.id.iv_avatar_mine));
+                Glide.with(mContext).load(user.getAvatar().getUrl()).into((CircleImageView) helper.getView(R.id.iv_avatar_mine));
                 helper.setText(R.id.tv_content_mine, item.getMessageContent());
                 break;
         }

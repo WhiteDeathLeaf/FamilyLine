@@ -3,6 +3,7 @@ package com.galaxy_light.gzh.familyline.utils;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,7 @@ public class PopupManager {
      * @param listener //子控件点击监听器
      * @return this
      */
-    public PopupManager createMultiMenu(View view, @LayoutRes int res, @Size int size, int[] ids, PopupChildListener listener) {
+    public PopupManager createMultiMenu(View view, @LayoutRes int res, @Size int size, boolean isShowNear, int[] ids, PopupChildListener listener) {
         this.popupChildListener = listener;
         setSize(size);
         View popupView = LayoutInflater.from(view.getContext()).inflate(res, null);
@@ -80,7 +81,11 @@ public class PopupManager {
                 popupWindow.dismiss();
             });
         }
-        popupWindow.showAsDropDown(view, view.getWidth() / 3, -view.getHeight());
+        if (isShowNear) {
+            popupWindow.showAsDropDown(view, view.getWidth() / 3, -view.getHeight());
+        } else {
+            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        }
         return this;
     }
 

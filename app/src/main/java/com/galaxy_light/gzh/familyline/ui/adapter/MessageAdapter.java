@@ -1,8 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.adapter;
 
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
@@ -11,6 +9,8 @@ import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.MessageBean;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 消息Adapter
@@ -27,7 +27,7 @@ public class MessageAdapter extends BaseItemDraggableAdapter<MessageBean, BaseVi
     protected void convert(BaseViewHolder helper, MessageBean item) {
         if (!TextUtils.isEmpty(item.getImageUrl())) {
             //设置用户头像
-            Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.iv_message_avatar));
+            Glide.with(mContext).load(item.getImageUrl()).into((CircleImageView) helper.getView(R.id.iv_message_avatar));
         }else{
             helper.setImageResource(R.id.iv_message_avatar,R.drawable.ic_launcher);
         }

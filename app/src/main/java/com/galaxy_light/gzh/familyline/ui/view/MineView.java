@@ -6,4 +6,6 @@ package com.galaxy_light.gzh.familyline.ui.view;
 
 public interface MineView {
     void updateAvatar(String url);
+
+    void logoutSuccess();
 }

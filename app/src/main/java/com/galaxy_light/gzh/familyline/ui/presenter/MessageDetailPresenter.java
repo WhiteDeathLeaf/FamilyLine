@@ -1,5 +1,7 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
+import android.util.Log;
+
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;

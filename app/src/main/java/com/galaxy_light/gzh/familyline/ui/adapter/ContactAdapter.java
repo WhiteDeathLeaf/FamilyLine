@@ -4,7 +4,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,6 +12,8 @@ import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 好友Adapter
@@ -38,7 +39,7 @@ public class ContactAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder> {
         }
         if (!TextUtils.isEmpty(item.getImageUrl())) {
             //设置用户头像
-            Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.iv_contact_avatar));
+            Glide.with(mContext).load(item.getImageUrl()).into((CircleImageView) helper.getView(R.id.iv_contact_avatar));
         } else {
             helper.setImageResource(R.id.iv_contact_avatar, R.drawable.ic_launcher);
         }

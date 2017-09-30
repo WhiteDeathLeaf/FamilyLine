@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVUser;
 import com.bumptech.glide.Glide;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;

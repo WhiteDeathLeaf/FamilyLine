@@ -1,6 +1,5 @@
 package com.galaxy_light.gzh.familyline.ui.activity;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;

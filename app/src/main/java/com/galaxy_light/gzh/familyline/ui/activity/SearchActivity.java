@@ -8,16 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.ui.adapter.SearchAdapter;

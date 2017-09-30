@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.ui.adapter.HomeViewPagerAdapter;
 import com.galaxy_light.gzh.familyline.ui.fragment.ContactFragment;
 import com.galaxy_light.gzh.familyline.ui.fragment.DynamicFragment;
@@ -31,16 +32,18 @@ public class HomePresenter {
     public HomePresenter(HomeView homeView) {
         this.homeView = homeView;
     }
-    public void connectToIM(){
-        AVIMClient.getInstance(AVUser.getCurrentUser()).open(new AVIMClientCallback() {
+
+    public void connectToIM() {
+        AVIMClient.getInstance(FamilyLineUser.getCurrentUser()).open(new AVIMClientCallback() {
             @Override
             public void done(AVIMClient avimClient, AVIMException e) {
                 if (e == null) {
-                    Log.e("TAG","connectToIM");
+                    AVUser.getCurrentUser().saveInBackground();
                 }
             }
         });
     }
+
     public void setPage(FragmentManager fm) {
         if (fragments == null) {
             fragments = new ArrayList<>();

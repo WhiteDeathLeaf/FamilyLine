@@ -47,4 +47,9 @@ public class PrefManager {
         editor.remove(name);
         editor.commit();
     }
+
+    public static void clear() {
+        editor.clear();
+        editor.commit();
+    }
 }

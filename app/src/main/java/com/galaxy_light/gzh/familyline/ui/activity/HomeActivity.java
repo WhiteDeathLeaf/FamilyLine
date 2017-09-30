@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.avos.avoscloud.AVUser;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.ui.adapter.HomeViewPagerAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.HomePresenter;
@@ -58,7 +57,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         HomePresenter presenter = new HomePresenter(this);
         presenter.setPage(getSupportFragmentManager());
         presenter.connectToIM();
-        AVUser.getCurrentUser().saveInBackground();
     }
 
     private void initToolbar() {

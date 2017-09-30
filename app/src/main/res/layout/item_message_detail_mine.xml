@@ -23,7 +23,7 @@
         app:arrowLocation="right"
         app:bubbleColor="@color/white" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar_mine"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"

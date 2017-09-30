@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_mine_avatar"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        app:civ_border_color="@color/toolbar"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/tv_mine_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/sp_20" />
+
+    <Button
+        android:id="@+id/btn_mine_logout"
+        style="@style/Base.Widget.AppCompat.Button"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_160"
-        android:layout_margin="@dimen/dp_10">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_mine_avatar"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_20"
-            app:civ_border_color="@color/toolbar"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/tv_mine_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_mine_avatar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_10"
-            android:padding="@dimen/dp_10"
-            android:textSize="@dimen/sp_16" />
-    </RelativeLayout>
+        android:layout_height="@dimen/dp_60"
+        android:text="@string/logout"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginTop="@dimen/dp_20"/>
 </LinearLayout>

@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_item_stroke">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_contact_avatar"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"

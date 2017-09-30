@@ -1,5 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +32,8 @@ import com.galaxy_light.gzh.familyline.utils.NotifyManager;
 import com.galaxy_light.gzh.familyline.utils.PopupManager;
 import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -59,7 +62,7 @@ public class MessageFragment extends Fragment implements MessageView {
     @Override
     public void onStart() {
         super.onStart();
-        AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler());
+        AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler(presenter,getContext()));
         if (((MessageAdapter) (rvMessage.getAdapter())).getData().size() <= 0) {
             presenter.requestMessageData();
         }
@@ -68,7 +71,7 @@ public class MessageFragment extends Fragment implements MessageView {
     @Override
     public void onStop() {
         super.onStop();
-        AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler());
+        AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler(presenter,getContext()));
     }
 
     @Override
@@ -127,7 +130,7 @@ public class MessageFragment extends Fragment implements MessageView {
     }
 
     private BaseQuickAdapter.OnItemLongClickListener itemLongClickListener = (adapter, view, position) -> {
-        PopupManager.getInstance().createMultiMenu(view, R.layout.popup_message_item, PopupManager.SIZE_WRAP, new int[]{R.id.tv_popup_delete, R.id.tv_popup_top}, v -> {
+        PopupManager.getInstance().createMultiMenu(view, R.layout.popup_message_item, PopupManager.SIZE_WRAP, true, new int[]{R.id.tv_popup_delete, R.id.tv_popup_top}, v -> {
             MessageBean currentBean = (MessageBean) adapter.getData().get(position);
             switch (v.getId()) {
                 case R.id.tv_popup_delete://删除
@@ -145,11 +148,19 @@ public class MessageFragment extends Fragment implements MessageView {
         return true;
     };
 
-    private class MessageFragmentHandler extends AVIMMessageHandler {
+    private static class MessageFragmentHandler extends AVIMMessageHandler {
+
+        private MessagePresenter presenter;
+        private WeakReference<Context> contextWrf;
+
+        public MessageFragmentHandler(MessagePresenter presenter, Context context) {
+            this.presenter = presenter;
+            this.contextWrf = new WeakReference<>(context);
+        }
 
         @Override
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-            presenter.acceptNewMessage(getContext(), message, conversation);
+            presenter.acceptNewMessage(contextWrf.get(), message, conversation);
         }
     }
 }

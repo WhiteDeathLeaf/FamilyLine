@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -29,8 +31,10 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
+import com.galaxy_light.gzh.familyline.ui.adapter.EmojiAdapter;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessageDetailPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
@@ -74,6 +78,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     CheckBox cbMore;
     @BindView(R.id.btn_message_send)
     Button btnMessageSend;
+    @BindView(R.id.rv_emoji)
+    RecyclerView rvEmoji;
 
     private UserBean userBean;
     private String user_id;
@@ -246,6 +252,17 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         rvMessageDetail.setLayoutManager(new LinearLayoutManager(this));
         rvMessageDetail.setAdapter(adapter);
     }
+
+    @Override
+    public void setEmojiAdapter(EmojiAdapter adapter) {
+        adapter.setOnItemChildClickListener(itemChildClickListener);
+        rvEmoji.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.HORIZONTAL, false));
+        rvEmoji.setAdapter(adapter);
+    }
+
+    private BaseQuickAdapter.OnItemChildClickListener itemChildClickListener = (adapter, view, position) -> {
+
+    };
 
     @Override
     public void showMessage(String message) {

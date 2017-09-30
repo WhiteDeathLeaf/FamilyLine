@@ -7,15 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.galaxy_light.gzh.familyline.R;
+
 /**
  * 动态Fragment
  * Created by gzh on 2017-9-20.
  */
 
-public class DynamicFragment extends Fragment{
+public class DynamicFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.layout_home_dynamic, container, false);
+        return view;
     }
 }
