@@ -31,7 +31,5 @@ public class MyApplication extends Application {
         AVOSCloud.setDebugLogEnabled(true);
         //注册默认的消息处理逻辑
         AVIMMessageManager.registerDefaultMessageHandler(new BackgroundMessageHandler(this));
-        //初始化SharedPreferences
-        PrefManager.init(this);
     }
 }

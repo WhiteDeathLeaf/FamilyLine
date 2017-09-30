@@ -3,15 +3,15 @@ package com.galaxy_light.gzh.familyline.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -31,10 +31,9 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.model.bean.UserBean;
-import com.galaxy_light.gzh.familyline.ui.adapter.EmojiAdapter;
+import com.galaxy_light.gzh.familyline.ui.adapter.EmojiPagerAdapter;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.MessageDetailPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
@@ -78,8 +77,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     CheckBox cbMore;
     @BindView(R.id.btn_message_send)
     Button btnMessageSend;
-    @BindView(R.id.rv_emoji)
-    RecyclerView rvEmoji;
+    @BindView(R.id.vp_emoji)
+    ViewPager vpEmoji;
 
     private UserBean userBean;
     private String user_id;
@@ -109,6 +108,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         presenter = new MessageDetailPresenter(this, userBean.getImageUrl());
         detailHandler = new MessageDetailHandler();
         presenter.requestMessageDetailData(userBean.getUsername(), conversationID);
+        presenter.initEmoji(this);
     }
 
     private void initToolbar() {
@@ -191,8 +191,10 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     flEmoji.setVisibility(View.VISIBLE);
                     cbAtInput.setChecked(false);
                     cbMore.setChecked(false);
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 } else {
                     flEmoji.setVisibility(View.GONE);
                 }
@@ -254,15 +256,18 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
     }
 
     @Override
-    public void setEmojiAdapter(EmojiAdapter adapter) {
-        adapter.setOnItemChildClickListener(itemChildClickListener);
-        rvEmoji.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.HORIZONTAL, false));
-        rvEmoji.setAdapter(adapter);
+    public void setEmojiAdapter(EmojiPagerAdapter adapter) {
+        adapter.setOnEmojiClickListener(emoji -> {
+            if ("del".equals(emoji)) {
+                //表示点击的是删除按钮
+                KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL);
+                tetMessageInput.onKeyDown(KeyEvent.KEYCODE_DEL, event);
+            } else {
+                tetMessageInput.append(emoji);
+            }
+        });
+        vpEmoji.setAdapter(adapter);
     }
-
-    private BaseQuickAdapter.OnItemChildClickListener itemChildClickListener = (adapter, view, position) -> {
-
-    };
 
     @Override
     public void showMessage(String message) {

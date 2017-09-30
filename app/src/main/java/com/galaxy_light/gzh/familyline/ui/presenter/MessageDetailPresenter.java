@@ -1,5 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.avos.avoscloud.AVUser;
@@ -12,11 +13,18 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.galaxy_light.gzh.familyline.model.bean.MessageDetailBean;
+import com.galaxy_light.gzh.familyline.ui.adapter.EmojiPagerAdapter;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 import com.galaxy_light.gzh.familyline.ui.view.MessageDetailView;
 import com.galaxy_light.gzh.familyline.utils.ContentUtil;
 import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -104,4 +112,46 @@ public class MessageDetailPresenter {
         adapter.notifyDataSetChanged();
         messageDetailView.moveToLast(adapter.getData().size() - 1);
     }
+
+    public void initEmoji(Context context) {
+        messageDetailView.setEmojiAdapter(new EmojiPagerAdapter(context, getEmojis(context)));
+    }
+
+    /**
+     * 从assets目录下获取所有表情
+     *
+     * @return emojis
+     */
+    public String[] getEmojis(Context context) {
+        BufferedReader br = null;
+        String emojis[] = null;
+        try {
+            InputStream is = context.getAssets().open("emoji.json");
+            StringBuilder sb = new StringBuilder();
+            br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while (null != (line = br.readLine())) {
+                sb.append(line).append("\r\n");
+            }
+            JSONArray emojiArray = new JSONArray(sb.toString());
+            if (emojiArray != null && emojiArray.length() > 0) {
+                emojis = new String[emojiArray.length()];
+                for (int i = 0; i < emojiArray.length(); i++) {
+                    emojis[i] = emojiArray.optString(i);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != br) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return emojis;
+    }
+
 }

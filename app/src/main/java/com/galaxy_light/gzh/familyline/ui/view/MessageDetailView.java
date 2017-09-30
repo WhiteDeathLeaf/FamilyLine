@@ -1,6 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.view;
 
-import com.galaxy_light.gzh.familyline.ui.adapter.EmojiAdapter;
+import com.galaxy_light.gzh.familyline.ui.adapter.EmojiPagerAdapter;
 import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 
 /**
@@ -10,7 +10,7 @@ import com.galaxy_light.gzh.familyline.ui.adapter.MessageDetailAdapter;
 public interface MessageDetailView {
     void setDetailAdapter(MessageDetailAdapter adapter);
 
-    void setEmojiAdapter(EmojiAdapter adapter);
+    void setEmojiAdapter(EmojiPagerAdapter adapter);
 
     void showMessage(String message);
 

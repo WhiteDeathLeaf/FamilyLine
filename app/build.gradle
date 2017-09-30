@@ -65,4 +65,5 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.github.yalantis:ucrop:2.2.1-native'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'pub.devrel:easypermissions:1.0.1'
 }
