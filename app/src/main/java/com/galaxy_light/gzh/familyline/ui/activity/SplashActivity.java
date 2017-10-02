@@ -21,30 +21,30 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class SplashActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
-    private static final int RC_CAMERA_AND_LOCATION = 1;
+    private static final int RC_READ_WRITE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         methodRequiresTwoPermission();
-        SplashHandler handler = new SplashHandler(this);
-        if (AVUser.getCurrentUser() != null) {
-            handler.sendEmptyMessageDelayed(0, 1500);
-        } else {
-            handler.sendEmptyMessageDelayed(1, 1500);
-        }
     }
 
-    @AfterPermissionGranted(RC_CAMERA_AND_LOCATION)
+    @AfterPermissionGranted(RC_READ_WRITE)
     private void methodRequiresTwoPermission() {
         String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
             //初始化SharedPreferences
             PrefManager.init(this);
+            SplashHandler handler = new SplashHandler(this);
+            if (AVUser.getCurrentUser() != null) {
+                handler.sendEmptyMessageDelayed(0, 1500);
+            } else {
+                handler.sendEmptyMessageDelayed(1, 1500);
+            }
         } else {
             EasyPermissions.requestPermissions(this, "读写",
-                    RC_CAMERA_AND_LOCATION, perms);
+                    RC_READ_WRITE, perms);
         }
     }
 
@@ -66,9 +66,7 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
             Toast.makeText(this, "Returned from app settings to MainActivity with the following permissions:\n" +
-                    "        \\n\\nCamera: %s\n" +
-                    "        \\nLocation &amp; Contacts: %s\n" +
-                    "        \\nSMS: %s", Toast.LENGTH_SHORT)
+                    "        \\n\\nWriteRead: %s\n", Toast.LENGTH_SHORT)
                     .show();
         }
     }

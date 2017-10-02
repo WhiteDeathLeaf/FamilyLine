@@ -171,6 +171,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     cbAtInput.setChecked(true);
                     tetMessageInput.setVisibility(View.GONE);
                     btnMessageInput.setVisibility(View.VISIBLE);
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     return;
                 }
                 if (isCheck) {
@@ -178,8 +180,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     btnMessageInput.setVisibility(View.VISIBLE);
                     cbEtInput.setChecked(false);
                     cbMore.setChecked(false);
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 } else {
                     tetMessageInput.setVisibility(View.VISIBLE);
                     btnMessageInput.setVisibility(View.GONE);
@@ -191,9 +193,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     flEmoji.setVisibility(View.VISIBLE);
                     cbAtInput.setChecked(false);
                     cbMore.setChecked(false);
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                    ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 } else {
                     flEmoji.setVisibility(View.GONE);
@@ -205,8 +205,8 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     messageDetailBottom.setVisibility(View.VISIBLE);
                     cbAtInput.setChecked(false);
                     cbEtInput.setChecked(false);
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 } else {
                     messageDetailBottom.setVisibility(View.GONE);
                 }
@@ -225,10 +225,20 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
         tetMessageInput.setText(null);
     }
 
+    @OnClick(R.id.tet_message_input)
+    public void input() {
+        if (cbAtInput.isChecked() || cbEtInput.isChecked() || cbMore.isChecked()) {
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     @OnTouch(R.id.rv_message_detail)
     public boolean onTouch() {
         tetMessageInput.clearFocus();
         messageDetailBottom.setVisibility(View.GONE);
+        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         return false;//让事件继续传递;
     }
 
