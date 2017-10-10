@@ -10,7 +10,8 @@
         android:id="@+id/indexBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:paddingRight="@dimen/dp_10"
+        android:layout_alignParentEnd="true"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_10"
         android:textSize="@dimen/sp_16"/>
 </RelativeLayout>

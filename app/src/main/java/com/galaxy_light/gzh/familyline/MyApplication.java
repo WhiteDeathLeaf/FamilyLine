@@ -8,7 +8,6 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.receiver.BackgroundMessageHandler;
-import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 /**
  * MyApplication

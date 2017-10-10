@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
@@ -19,7 +18,7 @@ import android.support.annotation.NonNull;
  * BubbleDrawable
  * Created by gzh on 2017/9/27.
  */
-public class BubbleDrawable extends Drawable {
+class BubbleDrawable extends Drawable {
     private RectF mRect;
     private Path mPath = new Path();
     private BitmapShader mBitmapShader;
@@ -45,11 +44,6 @@ public class BubbleDrawable extends Drawable {
         this.mArrowLocation = builder.mArrowLocation;
         this.bubbleType = builder.bubbleType;
         this.mArrowCenter = builder.arrowCenter;
-    }
-
-    @Override
-    protected void onBoundsChange(Rect bounds) {
-        super.onBoundsChange(bounds);
     }
 
     @Override
@@ -237,12 +231,12 @@ public class BubbleDrawable extends Drawable {
         return (int) mRect.height();
     }
 
-    public static class Builder {
-        public static float DEFAULT_ARROW_WITH = 25;
-        public static float DEFAULT_ARROW_HEIGHT = 25;
-        public static float DEFAULT_ANGLE = 20;
-        public static float DEFAULT_ARROW_POSITION = 50;
-        public static int DEFAULT_BUBBLE_COLOR = Color.RED;
+    static class Builder {
+        static float DEFAULT_ARROW_WITH = 25;
+        static float DEFAULT_ARROW_HEIGHT = 25;
+        static float DEFAULT_ANGLE = 20;
+        static float DEFAULT_ARROW_POSITION = 50;
+        static int DEFAULT_BUBBLE_COLOR = Color.RED;
         private RectF mRect;
         private float mArrowWidth = DEFAULT_ARROW_WITH;
         private float mAngle = DEFAULT_ANGLE;
@@ -254,32 +248,32 @@ public class BubbleDrawable extends Drawable {
         private ArrowLocation mArrowLocation = ArrowLocation.LEFT;
         private boolean arrowCenter;
 
-        public Builder rect(RectF rect) {
+        Builder rect(RectF rect) {
             this.mRect = rect;
             return this;
         }
 
-        public Builder arrowWidth(float mArrowWidth) {
+        Builder arrowWidth(float mArrowWidth) {
             this.mArrowWidth = mArrowWidth;
             return this;
         }
 
-        public Builder angle(float mAngle) {
+        Builder angle(float mAngle) {
             this.mAngle = mAngle * 2;
             return this;
         }
 
-        public Builder arrowHeight(float mArrowHeight) {
+        Builder arrowHeight(float mArrowHeight) {
             this.mArrowHeight = mArrowHeight;
             return this;
         }
 
-        public Builder arrowPosition(float mArrowPosition) {
+        Builder arrowPosition(float mArrowPosition) {
             this.mArrowPosition = mArrowPosition;
             return this;
         }
 
-        public Builder bubbleColor(int bubbleColor) {
+        Builder bubbleColor(int bubbleColor) {
             this.bubbleColor = bubbleColor;
             bubbleType(BubbleType.COLOR);
             return this;
@@ -291,22 +285,22 @@ public class BubbleDrawable extends Drawable {
             return this;
         }
 
-        public Builder arrowLocation(ArrowLocation arrowLocation) {
+        Builder arrowLocation(ArrowLocation arrowLocation) {
             this.mArrowLocation = arrowLocation;
             return this;
         }
 
-        public Builder bubbleType(BubbleType bubbleType) {
+        Builder bubbleType(BubbleType bubbleType) {
             this.bubbleType = bubbleType;
             return this;
         }
 
-        public Builder arrowCenter(boolean arrowCenter) {
+        Builder arrowCenter(boolean arrowCenter) {
             this.arrowCenter = arrowCenter;
             return this;
         }
 
-        public BubbleDrawable build() {
+        BubbleDrawable build() {
             if (mRect == null) {
                 throw new IllegalArgumentException("BubbleDrawable Rect can not be null");
             }
@@ -314,7 +308,7 @@ public class BubbleDrawable extends Drawable {
         }
     }
 
-    public enum ArrowLocation {
+    enum ArrowLocation {
         LEFT(0x00),
         RIGHT(0x01),
         TOP(0x02),
@@ -344,7 +338,7 @@ public class BubbleDrawable extends Drawable {
         }
     }
 
-    public enum BubbleType {
+    enum BubbleType {
         COLOR,
         BITMAP
     }

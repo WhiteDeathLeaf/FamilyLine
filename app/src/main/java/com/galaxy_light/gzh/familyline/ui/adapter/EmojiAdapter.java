@@ -17,11 +17,11 @@ import butterknife.ButterKnife;
  * Created by gzh on 2017/9/30.
  */
 
-public class EmojiAdapter extends BaseAdapter {
+class EmojiAdapter extends BaseAdapter {
     private Context context;
     private String[] emojis;
 
-    public EmojiAdapter(Context context, String[] eachPageEmojis) {
+    EmojiAdapter(Context context, String[] eachPageEmojis) {
         this.context = context;
         this.emojis = eachPageEmojis;
     }

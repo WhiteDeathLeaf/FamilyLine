@@ -32,17 +32,18 @@
             android:id="@+id/iv_contact_detail_avatar"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_centerVertical="true"/>
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/description" />
         <TextView
             android:id="@+id/tv_contact_detail_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
             android:textSize="@dimen/sp_16"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
             android:layout_alignTop="@id/iv_contact_detail_avatar"
-            android:layout_toRightOf="@id/iv_contact_detail_avatar"/>
+            android:layout_toEndOf="@id/iv_contact_detail_avatar"/>
     </RelativeLayout>
     <Button
         android:id="@+id/btn_sendMessage"

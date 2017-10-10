@@ -4,6 +4,7 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 /**
+ * 消息详情实体类
  * Created by gzh on 2017-9-22.
  */
 
@@ -22,10 +23,6 @@ public class MessageDetailBean extends AVIMMessage implements MultiItemEntity {
 
     public String getMessageContent() {
         return messageContent;
-    }
-
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
     }
 
     @Override

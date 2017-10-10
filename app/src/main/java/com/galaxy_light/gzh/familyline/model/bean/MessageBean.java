@@ -29,10 +29,6 @@ public class MessageBean implements Parcelable {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -69,10 +65,6 @@ public class MessageBean implements Parcelable {
         return conversationID;
     }
 
-    public void setConversationID(String conversationID) {
-        this.conversationID = conversationID;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -87,7 +79,7 @@ public class MessageBean implements Parcelable {
         dest.writeString(this.lastTime);
     }
 
-    protected MessageBean(Parcel in) {
+    private MessageBean(Parcel in) {
         this.imageUrl = in.readString();
         this.username = in.readString();
         this.id = in.readString();

@@ -1,7 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -31,7 +30,6 @@ import java.util.Set;
 
 public class MessagePresenter {
     private MessageView messageView;
-    private List<MessageBean> messageBeen;
     private MessageAdapter adapter;
     private AVQuery<FamilyLineUser> query;
     private String userId;
@@ -41,7 +39,7 @@ public class MessagePresenter {
         this.messageView = messageView;
         query = new AVQuery<>("_User");
         userId = FamilyLineUser.getCurrentUser().getObjectId();
-        messageBeen = new ArrayList<>();
+        List<MessageBean> messageBeen = new ArrayList<>();
         adapter = new MessageAdapter(R.layout.item_home_message, messageBeen);
         this.messageView.setAdapter(adapter);
     }
@@ -56,11 +54,7 @@ public class MessagePresenter {
                 String lastTime = DateUtil.formatDate(conversation.getLastMessageAt());
                 String username = ContentUtil.replaceContent(conversation.getName());
                 List<String> members = conversation.getMembers();
-                for (String innerId : members) {
-                    if (!innerId.equals(userId)) {
-                        otherId = innerId;
-                    }
-                }
+                members.stream().filter(innerId -> !innerId.equals(userId)).forEach(innerId -> otherId = innerId);
                 query.getInBackground(otherId, new GetCallback<FamilyLineUser>() {
                     @Override
                     public void done(FamilyLineUser familyLineUser, AVException e) {

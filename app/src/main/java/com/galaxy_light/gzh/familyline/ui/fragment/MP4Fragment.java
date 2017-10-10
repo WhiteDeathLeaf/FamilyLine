@@ -48,14 +48,11 @@ public class MP4Fragment extends Fragment implements TextureView.SurfaceTextureL
             mediaPlayer.setDataSource(fileDescriptor, assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
             //异步准备
             mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    Surface mSurface = new Surface(surface);
-                    mp.setSurface(mSurface);
-                    mp.setLooping(true);//循环播放
-                    mp.start();
-                }
+            mediaPlayer.setOnPreparedListener(mp -> {
+                Surface mSurface = new Surface(surface);
+                mp.setSurface(mSurface);
+                mp.setLooping(true);//循环播放
+                mp.start();
             });
         } catch (IOException e) {
             e.printStackTrace();

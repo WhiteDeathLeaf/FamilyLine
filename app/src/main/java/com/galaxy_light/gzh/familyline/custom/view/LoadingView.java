@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * 加载中视图
@@ -30,7 +29,6 @@ import rx.functions.Action1;
  */
 
 public class LoadingView extends View {
-    private final int DEFAULT_DURATION = 6;//默认时间间隔
     private final int DEFAULT_EXTERNAL_RADIUS = dp2px(48);//默认外圆半径
     private final int DEFAULT_INTERNAL_RADIUS = dp2px(8);//默认内圆半径
     private final int DEFAULT_RADIAN = 45;//小圆间夹角
@@ -90,6 +88,7 @@ public class LoadingView extends View {
 
         TypedArray typeArray = getContext().obtainStyledAttributes(attrs,
                 R.styleable.BezierLoadingView);
+        int DEFAULT_DURATION = 6;
         mDuration = typeArray.getInt(R.styleable.BezierLoadingView_lv_duration, DEFAULT_DURATION);
         mInternalR = typeArray.getDimension(R.styleable.BezierLoadingView_lv_internal_radius, DEFAULT_INTERNAL_RADIUS);
         mExternalR = typeArray.getDimension(R.styleable.BezierLoadingView_lv_external_radius, DEFAULT_EXTERNAL_RADIUS);

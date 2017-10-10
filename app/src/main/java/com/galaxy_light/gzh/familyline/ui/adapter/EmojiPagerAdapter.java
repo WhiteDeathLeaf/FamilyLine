@@ -56,9 +56,9 @@ public class EmojiPagerAdapter extends PagerAdapter {
     /**
      * 获取所有表情GridView页面的集合
      *
-     * @return
+     * @return view集合
      */
-    public List<View> getPagerList() {
+    private List<View> getPagerList() {
         List<View> pagers = null;
         String[] eachPageEmojis;
         if (null != emojis && emojis.length > 0) {

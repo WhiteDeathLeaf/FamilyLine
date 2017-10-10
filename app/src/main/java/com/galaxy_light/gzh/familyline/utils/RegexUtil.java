@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 public class RegexUtil {
 
     public static final int VERIFY_SUCCESS = 0;
-    public static final int VERIFY_LENGTH_ERROR = 1;
-    public static final int VERIFY_TYPE_ERROR = 2;
+    private static final int VERIFY_LENGTH_ERROR = 1;
+    private static final int VERIFY_TYPE_ERROR = 2;
 
     /**
      * 账号为中文，字母或数字，长度为4~20，一个中文算2个长度

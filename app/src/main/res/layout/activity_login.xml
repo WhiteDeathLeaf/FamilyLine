@@ -35,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:contentDescription="@string/description" />
 
         <EditText
             android:id="@+id/tet_login_username"
@@ -45,7 +46,8 @@
             android:background="@drawable/bg_edit_stroke"
             android:gravity="center_vertical"
             android:hint="@string/input_username"
-            android:paddingLeft="@dimen/dp_10" />
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -60,7 +62,8 @@
                 android:gravity="center_vertical"
                 android:hint="@string/input_password"
                 android:inputType="textPassword"
-                android:paddingLeft="@dimen/dp_10" />
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10" />
             <CheckBox
                 android:id="@+id/cb_pwd_see"
                 android:layout_width="wrap_content"

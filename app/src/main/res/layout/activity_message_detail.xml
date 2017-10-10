@@ -43,7 +43,7 @@
             android:id="@+id/cb_at_input"
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/audio_text_selector"
             android:button="@null" />
 
@@ -54,7 +54,9 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_weight="1"
-            android:textColor="#888888" />
+            android:textColor="#888888"
+            android:inputType="text"
+            android:labelFor="@+id/tet_message_input"/>
         <Button
             android:id="@+id/btn_message_input"
             android:layout_width="0dp"

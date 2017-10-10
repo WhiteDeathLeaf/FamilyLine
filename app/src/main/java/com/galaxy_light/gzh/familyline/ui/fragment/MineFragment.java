@@ -99,7 +99,7 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
             Toast.makeText(getContext(), "Returned from app settings to MainActivity with the following permissions:\n" +
-                    "        \\n\\nCamera: %s\n" , Toast.LENGTH_SHORT)
+                    "        \\n\\nCamera: %s\n", Toast.LENGTH_SHORT)
                     .show();
         }
     }
@@ -170,7 +170,9 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
         File dir = new File(path);
         File file = new File(dir, fileName);
         if (!dir.exists()) {
-            dir.mkdir();
+            boolean mkdir = dir.mkdir();
+            if (mkdir)
+                Toast.makeText(getContext(), "已创建图片文件", Toast.LENGTH_SHORT).show();
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(intent, 300);

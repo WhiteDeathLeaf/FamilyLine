@@ -9,21 +9,20 @@ import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.bumptech.glide.Glide;
 import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.ui.view.MineView;
-import com.galaxy_light.gzh.familyline.utils.NotifyManager;
 import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 import java.io.FileNotFoundException;
 
 /**
+ * 我的Presenter
  * Created by gzh on 2017-9-29.
  */
 
 public class MinePresenter {
     private MineView mineView;
-    FamilyLineUser user;
+    private FamilyLineUser user;
 
     public MinePresenter(MineView mineView) {
         this.mineView = mineView;

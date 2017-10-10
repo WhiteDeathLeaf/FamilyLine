@@ -11,7 +11,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
  */
 public class SpellUtil {
 
-    public static StringBuffer sb = new StringBuffer();
+    private static StringBuffer sb = new StringBuffer();
 
     /**
      * 获取汉字字符串的首字母，英文字符不变
@@ -23,15 +23,15 @@ public class SpellUtil {
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] > 128) {
+        for (char aChar : chars) {
+            if (aChar > 128) {
                 try {
-                    sb.append(PinyinHelper.toHanyuPinyinStringArray(chars[i], defaultFormat)[0].charAt(0));
+                    sb.append(PinyinHelper.toHanyuPinyinStringArray(aChar, defaultFormat)[0].charAt(0));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
-                sb.append(chars[i]);
+                sb.append(aChar);
             }
         }
         return sb.toString();
@@ -61,15 +61,15 @@ public class SpellUtil {
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
-        for (int i = 0; i < nameChar.length; i++) {
-            if (nameChar[i] > 128) {
+        for (char aNameChar : nameChar) {
+            if (aNameChar > 128) {
                 try {
-                    sb.append(PinyinHelper.toHanyuPinyinStringArray(nameChar[i], defaultFormat)[0]);
+                    sb.append(PinyinHelper.toHanyuPinyinStringArray(aNameChar, defaultFormat)[0]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
-                sb.append(nameChar[i]);
+                sb.append(aNameChar);
             }
         }
         return sb.toString();

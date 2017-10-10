@@ -29,28 +29,16 @@ public class UserBean implements Comparable<UserBean>, Parcelable {
         }
     }
 
-    public String getPinyin() {
+    private String getPinyin() {
         return pinyin;
-    }
-
-    public void setPinyin(String pinyin) {
-        this.pinyin = pinyin;
     }
 
     public String getFirstLetter() {
         return firstLetter;
     }
 
-    public void setFirstLetter(String firstLetter) {
-        this.firstLetter = firstLetter;
-    }
-
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public String getUsername() {

@@ -1,8 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -36,12 +34,11 @@ import java.util.List;
 
 public class MessageDetailPresenter {
     private MessageDetailView messageDetailView;
-    private List<MessageDetailBean> messageDetailBeen;
     private MessageDetailAdapter adapter;
 
     public MessageDetailPresenter(MessageDetailView messageDetailView, String avatar) {
         this.messageDetailView = messageDetailView;
-        this.messageDetailBeen = new ArrayList<>();
+        List<MessageDetailBean> messageDetailBeen = new ArrayList<>();
         this.adapter = new MessageDetailAdapter(messageDetailBeen);
         this.adapter.setAvatar(avatar);
         this.messageDetailView.setDetailAdapter(adapter);
@@ -122,7 +119,7 @@ public class MessageDetailPresenter {
      *
      * @return emojis
      */
-    public String[] getEmojis(Context context) {
+    private String[] getEmojis(Context context) {
         BufferedReader br = null;
         String emojis[] = null;
         try {
@@ -134,7 +131,7 @@ public class MessageDetailPresenter {
                 sb.append(line).append("\r\n");
             }
             JSONArray emojiArray = new JSONArray(sb.toString());
-            if (emojiArray != null && emojiArray.length() > 0) {
+            if (emojiArray.length() > 0) {
                 emojis = new String[emojiArray.length()];
                 for (int i = 0; i < emojiArray.length(); i++) {
                     emojis[i] = emojiArray.optString(i);

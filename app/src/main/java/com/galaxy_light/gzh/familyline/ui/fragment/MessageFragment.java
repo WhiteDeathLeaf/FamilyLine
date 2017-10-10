@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,6 +128,7 @@ public class MessageFragment extends Fragment implements MessageView {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private BaseQuickAdapter.OnItemLongClickListener itemLongClickListener = (adapter, view, position) -> {
         PopupManager.getInstance().createMultiMenu(view, R.layout.popup_message_item, PopupManager.SIZE_WRAP, true, new int[]{R.id.tv_popup_delete, R.id.tv_popup_top}, v -> {
             MessageBean currentBean = (MessageBean) adapter.getData().get(position);
@@ -153,7 +153,7 @@ public class MessageFragment extends Fragment implements MessageView {
         private MessagePresenter presenter;
         private WeakReference<Context> contextWrf;
 
-        public MessageFragmentHandler(MessagePresenter presenter, Context context) {
+        MessageFragmentHandler(MessagePresenter presenter, Context context) {
             this.presenter = presenter;
             this.contextWrf = new WeakReference<>(context);
         }

@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@drawable/bg_edit_stroke_round"
-            android:drawableLeft="@drawable/search"
+            android:drawableStart="@drawable/search"
             android:drawablePadding="@dimen/dp_5"
             android:hint="@string/search" />
 
@@ -46,9 +46,10 @@
             android:id="@+id/ib_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="@dimen/dp_5"
-            android:background="@drawable/keyboard_return" />
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginStart="@dimen/dp_5"
+            android:background="@drawable/keyboard_return"
+            android:contentDescription="@string/description"/>
     </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
