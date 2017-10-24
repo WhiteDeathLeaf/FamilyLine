@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +16,7 @@ import com.galaxy_light.gzh.familyline.utils.PrefManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactDetailActivity extends AppCompatActivity {
     private static final String CONTACT = "contact";
@@ -26,7 +26,7 @@ public class ContactDetailActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_contact_detail)
     Toolbar toolbarContactDetail;
     @BindView(R.id.iv_contact_detail_avatar)
-    ImageView ivContactDetailAvatar;
+    CircleImageView ivContactDetailAvatar;
     @BindView(R.id.tv_contact_detail_username)
     TextView tvContactDetailUsername;
 

@@ -13,12 +13,12 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:theme="@style/AppTheme">
 
         <!-- 实时通信模块、推送（均需要加入以下声明） START -->
         <!-- 实时通信模块、推送都要使用 PushService -->
@@ -33,6 +33,7 @@
         </receiver>
         <!-- 实时通信模块、推送 END -->
 
+
         <!-- 反馈组件（需要加入以下声明）START -->
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
 
@@ -46,6 +47,7 @@
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,7 +60,7 @@
             android:name=".ui.activity.MessageDetailActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.activity.ContactDetailActivity" />
-
+        <activity android:name=".ui.activity.FriendCircleActivity"></activity>
     </application>
 
 </manifest>
