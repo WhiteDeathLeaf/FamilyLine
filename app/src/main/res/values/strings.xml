@@ -35,4 +35,5 @@
     <string name="logout">退出登录</string>
     <string name="description">contentDescription</string>
     <string name="addFriend">加好友</string>
+    <string name="friend_circle">亲友圈</string>
 </resources>

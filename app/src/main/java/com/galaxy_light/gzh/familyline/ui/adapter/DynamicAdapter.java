@@ -31,8 +31,8 @@ public class DynamicAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return array.get(position);
+    public String getItem(int position) {
+        return array.valueAt(position);
     }
 
     @Override

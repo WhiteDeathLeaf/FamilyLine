@@ -3,6 +3,7 @@ package com.galaxy_light.gzh.familyline.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.ui.activity.HomeActivity;
 import com.galaxy_light.gzh.familyline.ui.adapter.DynamicAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.DynamicPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.DynamicView;
@@ -53,6 +55,9 @@ public class DynamicFragment extends Fragment implements DynamicView {
     @Override
     public void setAdapter(DynamicAdapter adapter) {
         gvDynamic.setAdapter(adapter);
-        gvDynamic.setOnItemClickListener((parent, view, position, id) -> presenter.open(getActivity(), position));
+        gvDynamic.setOnItemClickListener((parent, view, position, id) -> {
+            presenter.open(getActivity(), (String) parent.getItemAtPosition(position));
+            ((HomeActivity) getActivity()).setCurrentPage(2);
+        });
     }
 }

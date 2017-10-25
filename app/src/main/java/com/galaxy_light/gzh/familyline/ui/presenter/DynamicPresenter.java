@@ -31,24 +31,37 @@ public class DynamicPresenter {
         array.put(R.drawable.news_paper, "新闻报");
         array.put(R.drawable.fiction_room, "小说屋");
         array.put(R.drawable.weather_master, "天气通");
+        array.put(R.drawable.music_room, "音乐室");
         if (adapter == null) {
             adapter = new DynamicAdapter(array);
             dynamicView.setAdapter(adapter);
         }
     }
 
-    public void open(Context context, int position) {
-        switch (position) {
-            case 0:
+    public void open(Context context, String name) {
+        switch (name) {
+            case "亲友圈":
                 context.startActivity(new Intent(context, FriendCircleActivity.class));
                 break;
-            case 1:
+            case "运动圈":
 
                 break;
-            case 2:
+            case "购物街":
 
                 break;
-            case 3:
+            case "游戏厅":
+
+                break;
+            case "新闻报":
+
+                break;
+            case "小说屋":
+
+                break;
+            case "天气通":
+
+                break;
+            case "音乐室":
 
                 break;
         }

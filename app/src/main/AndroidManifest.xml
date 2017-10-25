@@ -60,7 +60,8 @@
             android:name=".ui.activity.MessageDetailActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.activity.ContactDetailActivity" />
-        <activity android:name=".ui.activity.FriendCircleActivity"></activity>
+        <activity android:name=".ui.activity.FriendCircleActivity" />
+        <activity android:name=".ui.activity.PublishActivity"></activity>
     </application>
 
 </manifest>
