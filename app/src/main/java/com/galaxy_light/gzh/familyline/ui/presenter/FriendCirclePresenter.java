@@ -26,9 +26,18 @@ public class FriendCirclePresenter {
         friendCircleBeen = new ArrayList<>();
         List<String> list = new ArrayList<>();
         list.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        friendCircleBeen.add(new FriendCircleBean("", "", "test1", "15:00", "This is a test content1!", list, 0, null));
+        List<String> list1 = new ArrayList<>();
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        friendCircleBeen.add(new FriendCircleBean("", "", "test1", "15:00", "This is a test content1!", list1, 0, null));
         friendCircleBeen.add(new FriendCircleBean("", "", "test2", "20:00", "This is a test content2!", list, 0, null));
-        friendCircleBeen.add(new FriendCircleBean("", "", "test3", "00:00", "This is a test content3!", list, 0, null));
         if (adapter == null) {
             adapter = new FriendCircleAdapter(R.layout.item_friend_circle, friendCircleBeen);
             friendCircleView.setAdapter(adapter);

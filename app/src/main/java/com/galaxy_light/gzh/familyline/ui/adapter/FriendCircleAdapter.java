@@ -1,8 +1,12 @@
 package com.galaxy_light.gzh.familyline.ui.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -10,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.custom.view.ImageGridView;
 import com.galaxy_light.gzh.familyline.model.bean.FriendCircleBean;
 
 import java.util.List;
@@ -34,19 +39,27 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
         } else {
             helper.setImageResource(R.id.iv_friend_circle_avatar, R.drawable.ic_launcher);
         }
+        //设置用户名
         helper.setText(R.id.tv_friend_circle_name, item.getName());
+        //设置发布时间
         helper.setText(R.id.tv_friend_circle_time, item.getTime());
+        //设置文本内容
         helper.setText(R.id.tv_friend_circle_content, item.getContent());
+        //设置图片内容
         if (item.getImages() != null && item.getImages().size() > 0) {
             LinearLayout parent = helper.getView(R.id.ll_content_parent);
-            if (item.getImages().size() == 1) {
+            if (item.getImages().size() == 1) {//只有一张图片
                 ImageView imageView = new ImageView(mContext);
                 Glide.with(mContext).load(item.getImages().get(0)).into(imageView);
                 parent.addView(imageView);
             } else {
-                for (String imageUrl : item.getImages()) {
-                    // TODO: 2017-10-25 宫格展示
-                }
+                ImageGridView gridView = new ImageGridView(mContext);
+                gridView.setNumColumns(3);
+                gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                gridView.setCacheColorHint(Color.TRANSPARENT);
+                gridView.setGravity(Gravity.CENTER);
+                gridView.setAdapter(new ImageAdapter(item.getImages()));
+                parent.addView(gridView);
             }
         }
     }
