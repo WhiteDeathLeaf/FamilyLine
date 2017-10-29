@@ -36,4 +36,9 @@
     <string name="description">contentDescription</string>
     <string name="addFriend">加好友</string>
     <string name="friend_circle">亲友圈</string>
+    <string name="family_line">Family Line</string>
+    <string name="com_name">Galaxy Light Technology Co.,Ltd</string>
+    <string name="publish_hint">想说点什么呢……</string>
+    <string name="publish">发表</string>
+    <string name="publish_content">发表动态</string>
 </resources>

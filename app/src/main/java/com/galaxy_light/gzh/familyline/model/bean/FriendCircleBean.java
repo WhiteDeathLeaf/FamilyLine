@@ -1,5 +1,6 @@
 package com.galaxy_light.gzh.familyline.model.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,11 +14,11 @@ public class FriendCircleBean {
     private String name;
     private String time;
     private String content;
-    private List<String> images;
+    private ArrayList<String> images;
     private int likeCount;
     private List<String> comments;
 
-    public FriendCircleBean(String id, String avatar, String name, String time, String content, List<String> images, int likeCount, List<String> comments) {
+    public FriendCircleBean(String id, String avatar, String name, String time, String content, ArrayList<String> images, int likeCount, List<String> comments) {
         this.id = id;
         this.avatar = avatar;
         this.name = name;
@@ -68,11 +69,11 @@ public class FriendCircleBean {
         this.content = content;
     }
 
-    public List<String> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
     }
 

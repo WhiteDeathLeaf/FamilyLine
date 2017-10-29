@@ -6,7 +6,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,6 +16,7 @@ import com.galaxy_light.gzh.familyline.R;
 import com.galaxy_light.gzh.familyline.custom.view.ImageGridView;
 import com.galaxy_light.gzh.familyline.model.bean.FriendCircleBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,7 +60,18 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
                 gridView.setGravity(Gravity.CENTER);
                 gridView.setAdapter(new ImageAdapter(item.getImages()));
                 parent.addView(gridView);
+                gridView.setOnItemClickListener((parent1, view, position, id) -> listener.photoClick(view.findViewById(R.id.iv_image), item.getImages()));
             }
         }
+    }
+
+    private PhotoListener listener;
+
+    public interface PhotoListener {
+        void photoClick(ImageView imageView, ArrayList<String> imageUrls);
+    }
+
+    public void setPhotoListener(PhotoListener listener) {
+        this.listener = listener;
     }
 }

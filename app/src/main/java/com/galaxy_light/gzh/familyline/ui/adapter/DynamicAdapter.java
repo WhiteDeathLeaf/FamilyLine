@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.galaxy_light.gzh.familyline.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 动态Adapter
@@ -57,7 +57,7 @@ public class DynamicAdapter extends BaseAdapter {
 
     static class ViewHolder {
         @BindView(R.id.iv_dynamic_icon)
-        CircleImageView iv_icon;
+        ImageView iv_icon;
         @BindView(R.id.tv_dynamic_name)
         TextView tv_name;
 

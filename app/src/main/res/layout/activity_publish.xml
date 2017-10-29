@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.galaxy_light.gzh.familyline.ui.activity.PublishActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_publish"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@color/white">
+
+        <TextView
+            android:id="@+id/tv_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20" />
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/tet_publish"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:background="@drawable/bg_edit_stroke_round"
+        android:gravity="start"
+        android:hint="@string/publish_hint"
+        android:padding="@dimen/dp_4"
+        android:layout_margin="@dimen/dp_4"
+        android:textSize="@dimen/sp_16" />
+
+    <GridView
+        android:id="@+id/gv_publish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="5"
+        android:layout_margin="@dimen/dp_4"/>
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_4"
+        android:textSize="@dimen/sp_16"
+        android:drawableStart="@drawable/location"
+        android:drawablePadding="@dimen/dp_4"
+        android:text="位置"/>
+    <Button
+        android:id="@+id/btn_publish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_margin="@dimen/dp_4"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/publish"
+        android:enabled="false"/>
+</LinearLayout>

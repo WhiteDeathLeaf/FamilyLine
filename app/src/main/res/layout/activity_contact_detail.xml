@@ -51,5 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:text="@string/send_message"
+        android:textSize="@dimen/sp_14"
         android:layout_margin="@dimen/dp_10"/>
 </LinearLayout>

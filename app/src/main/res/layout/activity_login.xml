@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context="com.galaxy_light.gzh.familyline.ui.activity.LoginActivity">
 
     <android.support.v7.widget.Toolbar
@@ -66,8 +65,8 @@
                 android:paddingEnd="@dimen/dp_10" />
             <CheckBox
                 android:id="@+id/cb_pwd_see"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:layout_gravity="end|center_vertical"
                 android:button="@null"
                 android:background="@drawable/pwd_see_selector"/>

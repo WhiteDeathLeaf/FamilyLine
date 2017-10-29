@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.galaxy_light.gzh.familyline.R;
@@ -65,7 +66,21 @@ public class FriendCircleActivity extends AppCompatActivity implements FriendCir
 
     @Override
     public void setAdapter(FriendCircleAdapter adapter) {
+        adapter.setPhotoListener(photoListener);
         rvFriendCircle.setLayoutManager(new LinearLayoutManager(this));
         rvFriendCircle.setAdapter(adapter);
     }
+
+    private FriendCircleAdapter.PhotoListener photoListener = (imageView, imageUrls) -> {
+        Intent intent = new Intent(FriendCircleActivity.this, DragPhotoActivity.class);
+        int location[] = new int[2];
+        imageView.getLocationOnScreen(location);
+        intent.putExtra("left", location[0]);
+        intent.putExtra("top", location[1]);
+        intent.putExtra("height", imageView.getHeight());
+        intent.putExtra("width", imageView.getWidth());
+        intent.putExtra("imageUrls", imageUrls);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    };
 }

@@ -24,18 +24,18 @@ public class FriendCirclePresenter {
 
     public void requestData() {
         friendCircleBeen = new ArrayList<>();
-        List<String> list = new ArrayList<>();
-        list.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        List<String> list1 = new ArrayList<>();
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
-        list1.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3689295147,509373218&fm=26&gp=0.jpg");
+        ArrayList<String> list = new ArrayList<>();
+        list.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        ArrayList<String> list1 = new ArrayList<>();
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
+        list1.add("http://ac-sjnykwlc.clouddn.com/4072ab432ee2a1ff127a.png");
         friendCircleBeen.add(new FriendCircleBean("", "", "test1", "15:00", "This is a test content1!", list1, 0, null));
         friendCircleBeen.add(new FriendCircleBean("", "", "test2", "20:00", "This is a test content2!", list, 0, null));
         if (adapter == null) {

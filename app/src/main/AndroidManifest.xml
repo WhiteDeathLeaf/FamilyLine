@@ -61,7 +61,10 @@
             android:launchMode="singleTop" />
         <activity android:name=".ui.activity.ContactDetailActivity" />
         <activity android:name=".ui.activity.FriendCircleActivity" />
-        <activity android:name=".ui.activity.PublishActivity"></activity>
+        <activity android:name=".ui.activity.PublishActivity" />
+        <activity
+            android:name=".ui.activity.DragPhotoActivity"
+            android:theme="@style/translucent" />
     </application>
 
 </manifest>

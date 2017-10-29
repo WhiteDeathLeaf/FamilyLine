@@ -1,12 +1,16 @@
 package com.galaxy_light.gzh.familyline.ui.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
@@ -16,17 +20,23 @@ import com.galaxy_light.gzh.familyline.utils.PrefManager;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class SplashActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     private static final int RC_READ_WRITE = 1;
+    @BindView(R.id.tv_splash_version)
+    TextView tvSplashVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        tvSplashVersion.setText("v\t" + getPackageInfo(this).versionName);
         methodRequiresTwoPermission();
     }
 
@@ -57,7 +67,7 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog.Builder(this).build().show();
+//            new AppSettingsDialog.Builder(this).build().show();
         }
     }
 
@@ -91,5 +101,15 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
                     break;
             }
         }
+    }
+
+    private static PackageInfo getPackageInfo(Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            return pm.getPackageInfo(context.getPackageName(), PackageManager.GET_CONFIGURATIONS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

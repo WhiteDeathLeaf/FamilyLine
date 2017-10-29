@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/message_detail_bottom"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@drawable/bg">
+    android:layout_height="200dp">
 
     <GridView
         android:id="@+id/gv_more"

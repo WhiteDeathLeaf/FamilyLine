@@ -3,12 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context="com.galaxy_light.gzh.familyline.ui.activity.SplashActivity">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_splash_logo"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="@dimen/dp_160"
         android:src="@drawable/logo"
         android:layout_centerInParent="true"
         android:contentDescription="@string/description"/>
+    <TextView
+        android:id="@+id/tv_splash_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/family_line"
+        android:textSize="@dimen/sp_30"
+        android:textColor="#A0CA1B"
+        android:textStyle="bold"
+        android:layout_below="@id/iv_splash_logo"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/com_name"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_50"/>
+    <TextView
+        android:id="@+id/tv_splash_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"/>
 </RelativeLayout>

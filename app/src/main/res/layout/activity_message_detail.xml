@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context="com.galaxy_light.gzh.familyline.ui.activity.MessageDetailActivity">
 
@@ -65,7 +64,7 @@
             android:layout_marginRight="@dimen/dp_10"
             android:layout_weight="1"
             android:text="@string/hold_speak"
-            android:textColor="#888888"
+            android:textColor="#ffffff"
             android:background="@drawable/bg_button_selector"
             android:visibility="gone"/>
         <CheckBox
