@@ -6,6 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +42,10 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
     GridView gvPublish;
     @BindView(R.id.btn_publish)
     Button btnPublish;
+    @BindView(R.id.tv_location)
+    TextView tvLocation;
     private PublishPresenter publishPresenter;
+    private String publishContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
         ButterKnife.bind(this);
         publishPresenter = new PublishPresenter(this);
         initToolbar();
+        initListener();
         publishPresenter.addImage(null);
     }
 
@@ -59,12 +67,43 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
         }
     }
 
+    private void initListener() {
+        tetPublish.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                publishContent = tetPublish.getText().toString();
+                boolean canPublish = !TextUtils.isEmpty(publishContent);
+                btnPublish.setEnabled(canPublish);
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick({R.id.tv_location, R.id.btn_publish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_location:
+                startActivityForResult(new Intent(this, LocationListActivity.class), 500);
                 break;
             case R.id.btn_publish:
+                publishPresenter.publish();
                 break;
         }
     }
@@ -92,9 +131,14 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 400:
-                if (data!= null) {
+                if (data != null) {
                     UCrop.of(data.getData(), Uri.fromFile(new File(getCacheDir(), System.currentTimeMillis() + ".png")))
                             .start(this);
+                }
+                break;
+            case 500:
+                if (data != null) {
+                    tvLocation.setText(data.getStringExtra("location"));
                 }
                 break;
             case UCrop.REQUEST_CROP:

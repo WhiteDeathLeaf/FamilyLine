@@ -63,8 +63,9 @@
         <activity android:name=".ui.activity.FriendCircleActivity" />
         <activity android:name=".ui.activity.PublishActivity" />
         <activity
-            android:name=".ui.activity.DragPhotoActivity"
+            android:name=".ui.activity.ImagePageActivity"
             android:theme="@style/translucent" />
+        <activity android:name=".ui.activity.LocationListActivity"></activity>
     </application>
 
 </manifest>

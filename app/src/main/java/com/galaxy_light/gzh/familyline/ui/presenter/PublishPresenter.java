@@ -28,4 +28,7 @@ public class PublishPresenter {
         adapter.addImage(bitmap);
     }
 
+    public void publish() {
+
+    }
 }

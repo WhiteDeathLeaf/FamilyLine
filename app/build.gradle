@@ -72,5 +72,4 @@ dependencies {
     compile 'pub.devrel:easypermissions:1.0.1'
     testCompile 'junit:junit:4.12'
     implementation 'com.android.support:exifinterface:26.1.0'
-    compile 'com.github.githubwing:DragPhotoView:1.0.1'
 }

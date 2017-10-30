@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -52,6 +53,7 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
                 ImageView imageView = new ImageView(mContext);
                 Glide.with(mContext).load(item.getImages().get(0)).into(imageView);
                 parent.addView(imageView);
+                imageView.setOnClickListener(v -> listener.photoClick(item.getImages(), 0));
             } else {
                 ImageGridView gridView = new ImageGridView(mContext);
                 gridView.setNumColumns(3);
@@ -60,7 +62,7 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
                 gridView.setGravity(Gravity.CENTER);
                 gridView.setAdapter(new ImageAdapter(item.getImages()));
                 parent.addView(gridView);
-                gridView.setOnItemClickListener((parent1, view, position, id) -> listener.photoClick(view.findViewById(R.id.iv_image), item.getImages()));
+                gridView.setOnItemClickListener((parent1, view, position, id) -> listener.photoClick(item.getImages(), position));
             }
         }
     }
@@ -68,7 +70,7 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
     private PhotoListener listener;
 
     public interface PhotoListener {
-        void photoClick(ImageView imageView, ArrayList<String> imageUrls);
+        void photoClick(ArrayList<String> imageUrls, int index);
     }
 
     public void setPhotoListener(PhotoListener listener) {
