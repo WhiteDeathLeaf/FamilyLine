@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.baidu.mapapi.SDKInitializer;
 import com.galaxy_light.gzh.familyline.model.bean.FamilyLineUser;
 import com.galaxy_light.gzh.familyline.receiver.BackgroundMessageHandler;
 
@@ -30,5 +31,7 @@ public class MyApplication extends Application {
         AVOSCloud.setDebugLogEnabled(true);
         //注册默认的消息处理逻辑
         AVIMMessageManager.registerDefaultMessageHandler(new BackgroundMessageHandler(this));
+        //初始化百度地图
+        SDKInitializer.initialize(this);
     }
 }

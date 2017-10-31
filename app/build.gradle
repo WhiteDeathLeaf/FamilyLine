@@ -71,5 +71,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'pub.devrel:easypermissions:1.0.1'
     testCompile 'junit:junit:4.12'
+    implementation files('src/libs/BaiduLBS_Android.jar')
     implementation 'com.android.support:exifinterface:26.1.0'
 }
