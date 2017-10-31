@@ -9,4 +9,9 @@ import com.galaxy_light.gzh.familyline.ui.adapter.PublishAdapter;
 
 public interface PublishView {
     void setAdapter(PublishAdapter adapter);
+
+    void showMessage(String message);
+
+    void publishSuccess();
+
 }

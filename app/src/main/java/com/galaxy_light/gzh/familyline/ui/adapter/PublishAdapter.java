@@ -1,21 +1,17 @@
 package com.galaxy_light.gzh.familyline.ui.adapter;
 
 import android.graphics.Bitmap;
-import android.support.annotation.IntDef;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.galaxy_light.gzh.familyline.R;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,20 +22,20 @@ import butterknife.ButterKnife;
  */
 
 public class PublishAdapter extends BaseAdapter {
-    private List<Bitmap> list = new ArrayList<>();
-    public static final int TYPE_ADD = 0;
-    public static final int TYPE_IMAGE = 1;
-
-    @IntDef({TYPE_ADD, TYPE_IMAGE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Type {
-    }
+    private ArrayList<Bitmap> list = new ArrayList<>();
+    private static final int TYPE_ADD = 0;
+    private static final int TYPE_IMAGE = 1;
+    private boolean delete = false;
 
     public void addImage(Bitmap bitmap) {
         if (bitmap != null) {
             list.add(bitmap);
             notifyDataSetChanged();
         }
+    }
+
+    public ArrayList<Bitmap> getList() {
+        return list;
     }
 
     @Override
@@ -101,11 +97,21 @@ public class PublishAdapter extends BaseAdapter {
                     imageViewHolder = (ImageViewHolder) convertView.getTag();
                 }
                 ViewGroup.LayoutParams layoutParams = imageViewHolder.iv_image.getLayoutParams();
-                layoutParams.width = parent.getWidth() / 5;
-                layoutParams.height = parent.getWidth() / 5;
+                int width = parent.getWidth();
+                layoutParams.width = width / 5;
+                layoutParams.height = width / 5;
                 imageViewHolder.iv_image.setLayoutParams(layoutParams);
                 imageViewHolder.iv_image.setImageBitmap(list.get(position));
-                imageViewHolder.iv_image.setOnClickListener(view -> listener.imageClick(list.get(position)));
+                imageViewHolder.iv_image.setOnClickListener(v -> {
+                    if (!delete) {
+                        delete = true;
+                        Toast.makeText(parent.getContext(), "再按一次删除图片", Toast.LENGTH_SHORT).show();
+                        imageViewHolder.iv_image.postDelayed(() -> delete = false, 2000);
+                    } else {
+                        list.remove(list.get(position));
+                        notifyDataSetChanged();
+                    }
+                });
                 break;
         }
         return convertView;
@@ -132,8 +138,6 @@ public class PublishAdapter extends BaseAdapter {
     private ImageListener listener;
 
     public interface ImageListener {
-        void imageClick(Bitmap bitmap);
-
         void addClick();
     }
 

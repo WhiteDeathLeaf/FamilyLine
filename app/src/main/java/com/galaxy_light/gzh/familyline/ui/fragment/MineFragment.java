@@ -71,13 +71,12 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
     }
 
     @AfterPermissionGranted(RC_CAMERA)
-    private void methodRequiresCameraPermission() {
+    private void requiresCameraPermission() {
         String perm = Manifest.permission.CAMERA;
         if (EasyPermissions.hasPermissions(getContext(), perm)) {
             filePath = toCamera();
         } else {
-            EasyPermissions.requestPermissions(this, "相机",
-                    RC_CAMERA, perm);
+            EasyPermissions.requestPermissions(this, "相机", RC_CAMERA, perm);
         }
     }
 
@@ -90,7 +89,7 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog.Builder(this).build().show();
+//            new AppSettingsDialog.Builder(this).build().show();
         }
     }
 
@@ -98,9 +97,7 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            Toast.makeText(getContext(), "Returned from app settings to MainActivity with the following permissions:\n" +
-                    "        \\n\\nCamera: %s\n", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(getContext(), "相机", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -116,7 +113,7 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
                 new int[]{R.id.btn_camera, R.id.btn_gallery, R.id.btn_cancel}, v -> {
                     switch (v.getId()) {
                         case R.id.btn_camera:
-                            methodRequiresCameraPermission();
+                            requiresCameraPermission();
                             break;
                         case R.id.btn_gallery:
                             toGallery();

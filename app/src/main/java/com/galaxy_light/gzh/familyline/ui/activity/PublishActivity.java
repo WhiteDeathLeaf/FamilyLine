@@ -46,6 +46,7 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
     TextView tvLocation;
     private PublishPresenter publishPresenter;
     private String publishContent;
+    private String publishLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,28 +104,26 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
                 startActivityForResult(new Intent(this, LocationListActivity.class), 500);
                 break;
             case R.id.btn_publish:
-                publishPresenter.publish();
+                publishPresenter.publish(publishContent, publishLocation);
                 break;
         }
     }
 
     @Override
     public void setAdapter(PublishAdapter adapter) {
-        adapter.setImageListener(imageListener);
+        adapter.setImageListener(this::toGallery);
         gvPublish.setAdapter(adapter);
     }
 
-    private PublishAdapter.ImageListener imageListener = new PublishAdapter.ImageListener() {
-        @Override
-        public void imageClick(Bitmap bitmap) {
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
-        }
-
-        @Override
-        public void addClick() {
-            toGallery();
-        }
-    };
+    @Override
+    public void publishSuccess() {
+        finish();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -37,11 +37,11 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         tvSplashVersion.setText("v\t" + getPackageInfo(this).versionName);
-        methodRequiresTwoPermission();
+        requiresReadAndWritePermission();
     }
 
     @AfterPermissionGranted(RC_READ_WRITE)
-    private void methodRequiresTwoPermission() {
+    private void requiresReadAndWritePermission() {
         String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
             //初始化SharedPreferences
@@ -75,9 +75,7 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            Toast.makeText(this, "Returned from app settings to MainActivity with the following permissions:\n" +
-                    "        \\n\\nWriteRead: %s\n", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "读写", Toast.LENGTH_SHORT).show();
         }
     }
 

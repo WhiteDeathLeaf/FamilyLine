@@ -8,6 +8,8 @@ import android.support.media.ExifInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -53,6 +55,18 @@ public class ImageUtil {
             }
         }
         return decodedImage;
+    }
+
+    public static void storeBitmap(Bitmap bitmap, Bitmap.CompressFormat format, int quality, String pathOfOutputImage) {
+        try {
+            final FileOutputStream out = new FileOutputStream(pathOfOutputImage);
+            final BufferedOutputStream bos = new BufferedOutputStream(out);
+            bitmap.compress(format, quality, bos);
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.fillInStackTrace();
+        }
     }
 }
 

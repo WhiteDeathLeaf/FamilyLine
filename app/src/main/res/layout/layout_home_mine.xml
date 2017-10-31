@@ -28,8 +28,8 @@
         android:id="@+id/btn_mine_logout"
         style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="wrap_content"
         android:text="@string/logout"
         android:textSize="@dimen/sp_20"
-        android:layout_marginTop="@dimen/dp_20"/>
+        android:layout_marginTop="@dimen/dp_20" />
 </LinearLayout>

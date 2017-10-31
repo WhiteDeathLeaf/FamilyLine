@@ -14,6 +14,7 @@ public class FriendCircleBean {
     private String name;
     private String time;
     private String content;
+    private String location;
     private ArrayList<String> images;
     private int likeCount;
     private List<String> comments;
@@ -91,5 +92,13 @@ public class FriendCircleBean {
 
     public void setComments(List<String> comments) {
         this.comments = comments;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
