@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.ui.adapter.PublishAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.PublishPresenter;
 import com.galaxy_light.gzh.familyline.ui.view.PublishView;
@@ -47,6 +48,7 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
     private PublishPresenter publishPresenter;
     private String publishContent;
     private String publishLocation;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,17 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
     }
 
     @Override
+    public void showLoading() {
+        loadingDialog = new LoadingDialog();
+        loadingDialog.show(getSupportFragmentManager(), "loadingDialog");
+    }
+
+    @Override
+    public void hideLoading() {
+        loadingDialog.dismiss();
+    }
+
+    @Override
     public void setAdapter(PublishAdapter adapter) {
         adapter.setImageListener(this::toGallery);
         gvPublish.setAdapter(adapter);
@@ -138,6 +151,7 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
             case 500:
                 if (data != null) {
                     tvLocation.setText(data.getStringExtra("location"));
+                    publishLocation = tvLocation.getText().toString();
                 }
                 break;
             case UCrop.REQUEST_CROP:

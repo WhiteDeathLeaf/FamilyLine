@@ -8,6 +8,10 @@ import com.galaxy_light.gzh.familyline.ui.adapter.PublishAdapter;
  */
 
 public interface PublishView {
+    void showLoading();
+
+    void hideLoading();
+
     void setAdapter(PublishAdapter adapter);
 
     void showMessage(String message);

@@ -15,11 +15,17 @@ public class DateUtil {
 
     public static String formatDate(long time) {
         Date date = new Date(time);
-        SimpleDateFormat sdf=new SimpleDateFormat("HH:mm", Locale.CHINESE);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINESE);
         return sdf.format(date);
     }
+
     public static String formatDate(Date date) {
-        SimpleDateFormat sdf=new SimpleDateFormat("HH:mm",Locale.CHINESE);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINESE);
+        return sdf.format(date);
+    }
+
+    public static String formatDetailDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINESE);
         return sdf.format(date);
     }
 }
