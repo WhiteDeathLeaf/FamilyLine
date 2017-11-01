@@ -52,7 +52,7 @@ public class FriendCirclePresenter {
                                 e1.printStackTrace();
                             }
                         }
-                        friendCircleBeen.add(new FriendCircleBean(objectId, avatar, userName, date, publishContent, urls, 0, null));
+                        friendCircleBeen.add(0,new FriendCircleBean(objectId, avatar, userName, date, publishContent, urls, 0, null));
                     }
                     if (adapter == null) {
                         adapter = new FriendCircleAdapter(R.layout.item_friend_circle, friendCircleBeen);
