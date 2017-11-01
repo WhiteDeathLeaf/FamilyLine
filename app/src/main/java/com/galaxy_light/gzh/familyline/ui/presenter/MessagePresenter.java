@@ -54,7 +54,11 @@ public class MessagePresenter {
                 String lastTime = DateUtil.formatDate(conversation.getLastMessageAt());
                 String username = ContentUtil.replaceContent(conversation.getName());
                 List<String> members = conversation.getMembers();
-                members.stream().filter(innerId -> !innerId.equals(userId)).forEach(innerId -> otherId = innerId);
+                for (String innerId : members) {
+                    if (!innerId.equals(userId)) {
+                        otherId = innerId;
+                    }
+                }
                 query.getInBackground(otherId, new GetCallback<FamilyLineUser>() {
                     @Override
                     public void done(FamilyLineUser familyLineUser, AVException e) {
