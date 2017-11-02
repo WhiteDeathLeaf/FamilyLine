@@ -46,24 +46,23 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
         helper.setText(R.id.tv_friend_circle_time, item.getTime());
         //设置文本内容
         helper.setText(R.id.tv_friend_circle_content, item.getContent());
+        if (item.getLocation() != null) {
+            //设置位置
+            helper.setText(R.id.tv_friend_circle_location, item.getLocation());
+            helper.getView(R.id.tv_friend_circle_location).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.tv_friend_circle_location).setVisibility(View.GONE);
+        }
         //设置图片内容
+        LinearLayout parent = helper.getView(R.id.ll_content_parent);
         if (item.getImages() != null && item.getImages().size() > 0) {
-            LinearLayout parent = helper.getView(R.id.ll_content_parent);
-            if (item.getImages().size() == 1) {//只有一张图片
-                ImageView imageView = new ImageView(mContext);
-                Glide.with(mContext).load(item.getImages().get(0)).into(imageView);
-                parent.addView(imageView);
-                imageView.setOnClickListener(v -> listener.photoClick(item.getImages(), 0));
-            } else {
-                ImageGridView gridView = new ImageGridView(mContext);
-                gridView.setNumColumns(3);
-                gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                gridView.setCacheColorHint(Color.TRANSPARENT);
-                gridView.setGravity(Gravity.CENTER);
-                gridView.setAdapter(new ImageAdapter(item.getImages()));
-                parent.addView(gridView);
-                gridView.setOnItemClickListener((parent1, view, position, id) -> listener.photoClick(item.getImages(), position));
-            }
+            ImageGridView gridView = new ImageGridView(mContext);
+            gridView.setNumColumns(3);
+            gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+            gridView.setGravity(Gravity.CENTER);
+            gridView.setAdapter(new ImageAdapter(item.getImages()));
+            parent.addView(gridView);
+            gridView.setOnItemClickListener((parent1, view, position, id) -> listener.photoClick(item.getImages(), position));
         }
     }
 

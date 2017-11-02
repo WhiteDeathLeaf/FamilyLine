@@ -19,13 +19,14 @@ public class FriendCircleBean {
     private int likeCount;
     private List<String> comments;
 
-    public FriendCircleBean(String id, String avatar, String name, String time, String content, ArrayList<String> images, int likeCount, List<String> comments) {
+    public FriendCircleBean(String id, String avatar, String name, String time, String content, ArrayList<String> images, String location, int likeCount, List<String> comments) {
         this.id = id;
         this.avatar = avatar;
         this.name = name;
         this.time = time;
         this.content = content;
         this.images = images;
+        this.location = location;
         this.likeCount = likeCount;
         this.comments = comments;
     }

@@ -28,10 +28,12 @@ public class FriendCirclePresenter {
 
     public FriendCirclePresenter(FriendCircleView friendCircleView) {
         this.friendCircleView = friendCircleView;
+        friendCircleBeen = new ArrayList<>();
+        adapter = new FriendCircleAdapter(R.layout.item_friend_circle, friendCircleBeen);
+        this.friendCircleView.setAdapter(adapter);
     }
 
     public void requestData() {
-        friendCircleBeen = new ArrayList<>();
         AVQuery<AVObject> avQuery = new AVQuery<>("FriendCircle");
         avQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
@@ -42,6 +44,7 @@ public class FriendCirclePresenter {
                         String userName = avObject.getString("userName");
                         String avatar = avObject.getString("avatar");
                         String publishContent = avObject.getString("publishContent");
+                        String location = avObject.getString("location");
                         String date = DateUtil.formatDetailDate(avObject.getCreatedAt());
                         JSONArray publishImage = avObject.getJSONArray("publishImage");
                         ArrayList<String> urls = new ArrayList<>();
@@ -52,14 +55,9 @@ public class FriendCirclePresenter {
                                 e1.printStackTrace();
                             }
                         }
-                        friendCircleBeen.add(0,new FriendCircleBean(objectId, avatar, userName, date, publishContent, urls, 0, null));
+                        friendCircleBeen.add(0, new FriendCircleBean(objectId, avatar, userName, date, publishContent, urls, location, 0, null));
                     }
-                    if (adapter == null) {
-                        adapter = new FriendCircleAdapter(R.layout.item_friend_circle, friendCircleBeen);
-                        friendCircleView.setAdapter(adapter);
-                    } else {
-                        adapter.notifyDataSetChanged();
-                    }
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

@@ -155,7 +155,7 @@ public class PublishActivity extends AppCompatActivity implements PublishView {
                 }
                 break;
             case UCrop.REQUEST_CROP:
-                if (UCrop.getOutput(data) != null) {
+                if (data != null) {
                     Bitmap bitmap = ImageUtil.convertBitmap(UCrop.getOutput(data).getPath(), 1080, 1920);
                     publishPresenter.addImage(bitmap);
                 }

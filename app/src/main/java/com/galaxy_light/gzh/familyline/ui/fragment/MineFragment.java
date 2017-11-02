@@ -143,7 +143,7 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
                 }
                 break;
             case UCrop.REQUEST_CROP:
-                if (UCrop.getOutput(data) != null) {
+                if (data != null) {
                     presenter.uploadAvatar(UCrop.getOutput(data));
                 }
                 break;

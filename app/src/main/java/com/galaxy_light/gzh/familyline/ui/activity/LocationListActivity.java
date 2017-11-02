@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.MapView;
 import com.galaxy_light.gzh.familyline.R;
 
 import java.util.List;
@@ -25,8 +26,11 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class LocationListActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     private static final int RC_LOCATION = 3;
-    @BindView(R.id.tv_locationList_location)
-    TextView tvLocationListLocation;
+    @BindView(R.id.mv_locationList)
+    MapView mvLocationList;
+    @BindView(R.id.lv_locationList)
+    ListView lvLocationList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,6 @@ public class LocationListActivity extends AppCompatActivity implements EasyPermi
             String city = bdLocation.getCity();    //获取城市
             String district = bdLocation.getDistrict();    //获取区县
             String street = bdLocation.getStreet();    //获取街道信息
-            tvLocationListLocation.setText(province + city);
             Intent intent = new Intent();
             intent.putExtra("location", province + city);
             setResult(3000, intent);
