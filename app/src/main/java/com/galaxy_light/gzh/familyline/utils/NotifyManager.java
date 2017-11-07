@@ -46,6 +46,7 @@ public class NotifyManager {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         notification.flags = Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(1, notification);
