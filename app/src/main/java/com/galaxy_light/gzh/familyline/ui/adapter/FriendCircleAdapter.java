@@ -57,6 +57,9 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
         }
         //设置图片内容
         LinearLayout parent = helper.getView(R.id.ll_content_parent);
+        if (parent.getChildCount() == 2) {
+            parent.removeViewAt(1);
+        }
         if (item.getImages() != null && item.getImages().size() > 0) {
             ImageGridView gridView = new ImageGridView(mContext);
             gridView.setNumColumns(3);

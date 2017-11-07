@@ -44,44 +44,65 @@ public class PublishPresenter {
         publishView.showLoading();
         ArrayList<String> urls = new ArrayList<>();
         if (adapter != null) {
-            List<Bitmap> list = adapter.getList();
-            for (Bitmap bitmap : list) {
-                File file = ImageUtil.compressImage(bitmap);
-                try {
-                    AVFile avFile = AVFile.withFile(file.getName(), file);
-                    avFile.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(AVException e) {
-                            if (e == null) {
-                                urls.add(avFile.getUrl());
-                                size++;
-                                if (size == list.size()) {
-                                    AVObject friendCircle = new AVObject("FriendCircle");
-                                    friendCircle.put("userName", AVUser.getCurrentUser(FamilyLineUser.class).getUsername());
-                                    friendCircle.put("avatar", AVUser.getCurrentUser(FamilyLineUser.class).getAvatar().getUrl());
-                                    friendCircle.put("publishContent", content);
-                                    friendCircle.put("publishImage", urls);
-                                    friendCircle.put("location", location);
-                                    friendCircle.saveInBackground(new SaveCallback() {
-                                        @Override
-                                        public void done(AVException e) {
-                                            publishView.hideLoading();
-                                            if (e == null) {
-                                                publishView.showMessage("发表成功");
-                                                publishView.publishSuccess();
-                                            } else {
-                                                publishView.showMessage("发表失败");
-                                            }
-                                        }
-                                    });
-                                }
-                            } else {
-                                publishView.showMessage("图片上传失败");
-                            }
+            if (urls.size() <= 0) {
+                AVObject friendCircle = new AVObject("FriendCircle");
+                friendCircle.put("userName", AVUser.getCurrentUser(FamilyLineUser.class).getUsername());
+                friendCircle.put("avatar", AVUser.getCurrentUser(FamilyLineUser.class).getAvatar().getUrl());
+                friendCircle.put("publishContent", content);
+                friendCircle.put("publishImage", urls);
+                friendCircle.put("location", location);
+                friendCircle.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        publishView.hideLoading();
+                        if (e == null) {
+                            publishView.showMessage("发表成功");
+                            publishView.publishSuccess();
+                        } else {
+                            publishView.showMessage("发表失败");
                         }
-                    });
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    }
+                });
+            } else {
+                List<Bitmap> list = adapter.getList();
+                for (Bitmap bitmap : list) {
+                    File file = ImageUtil.compressImage(bitmap);
+                    try {
+                        AVFile avFile = AVFile.withFile(file.getName(), file);
+                        avFile.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e == null) {
+                                    urls.add(avFile.getUrl());
+                                    size++;
+                                    if (size == list.size()) {
+                                        AVObject friendCircle = new AVObject("FriendCircle");
+                                        friendCircle.put("userName", AVUser.getCurrentUser(FamilyLineUser.class).getUsername());
+                                        friendCircle.put("avatar", AVUser.getCurrentUser(FamilyLineUser.class).getAvatar().getUrl());
+                                        friendCircle.put("publishContent", content);
+                                        friendCircle.put("publishImage", urls);
+                                        friendCircle.put("location", location);
+                                        friendCircle.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(AVException e) {
+                                                publishView.hideLoading();
+                                                if (e == null) {
+                                                    publishView.showMessage("发表成功");
+                                                    publishView.publishSuccess();
+                                                } else {
+                                                    publishView.showMessage("发表失败");
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    publishView.showMessage("图片上传失败");
+                                }
+                            }
+                        });
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
