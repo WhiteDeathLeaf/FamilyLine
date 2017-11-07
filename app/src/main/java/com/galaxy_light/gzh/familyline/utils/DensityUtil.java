@@ -68,9 +68,9 @@ public class DensityUtil {
     /**
      * 将sp值转换为px值，保证文字大小不变
      *
-     * @param context
-     * @param spValue
-     * @return
+     * @param context context
+     * @param spValue sp
+     * @return px
      */
     public static int sp2px(Context context, float spValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;

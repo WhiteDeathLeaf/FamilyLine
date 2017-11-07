@@ -41,4 +41,6 @@
     <string name="publish_hint">想说点什么呢……</string>
     <string name="publish">发表</string>
     <string name="publish_content">发表动态</string>
+    <string name="location_list">位置信息</string>
+    <string name="location">位置</string>
 </resources>

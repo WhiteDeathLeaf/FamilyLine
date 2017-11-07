@@ -66,9 +66,7 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-//            new AppSettingsDialog.Builder(this).build().show();
-        }
+
     }
 
     @Override

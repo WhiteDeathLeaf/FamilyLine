@@ -26,14 +26,15 @@ public class FriendCirclePresenter {
     private List<FriendCircleBean> friendCircleBeen;
     private FriendCircleAdapter adapter;
 
-    public FriendCirclePresenter(FriendCircleView friendCircleView) {
+    public FriendCirclePresenter(FriendCircleView friendCircleView, int size) {
         this.friendCircleView = friendCircleView;
         friendCircleBeen = new ArrayList<>();
-        adapter = new FriendCircleAdapter(R.layout.item_friend_circle, friendCircleBeen);
+        adapter = new FriendCircleAdapter(R.layout.item_friend_circle, friendCircleBeen, size);
         this.friendCircleView.setAdapter(adapter);
     }
 
     public void requestData() {
+        friendCircleView.showLoading();
         AVQuery<AVObject> avQuery = new AVQuery<>("FriendCircle");
         avQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
@@ -59,6 +60,7 @@ public class FriendCirclePresenter {
                     }
                     adapter.notifyDataSetChanged();
                 }
+                friendCircleView.hideLoading();
             }
         });
     }

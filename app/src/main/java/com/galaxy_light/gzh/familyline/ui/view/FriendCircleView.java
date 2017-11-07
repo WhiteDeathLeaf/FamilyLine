@@ -8,5 +8,9 @@ import com.galaxy_light.gzh.familyline.ui.adapter.FriendCircleAdapter;
  */
 
 public interface FriendCircleView {
+    void showLoading();
+
+    void hideLoading();
+
     void setAdapter(FriendCircleAdapter adapter);
 }

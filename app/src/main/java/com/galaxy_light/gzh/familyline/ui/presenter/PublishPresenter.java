@@ -1,7 +1,6 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;

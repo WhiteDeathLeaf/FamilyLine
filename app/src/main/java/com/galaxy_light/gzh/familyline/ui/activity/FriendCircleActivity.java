@@ -10,9 +10,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.galaxy_light.gzh.familyline.R;
+import com.galaxy_light.gzh.familyline.custom.view.LoadingDialog;
 import com.galaxy_light.gzh.familyline.ui.adapter.FriendCircleAdapter;
 import com.galaxy_light.gzh.familyline.ui.presenter.FriendCirclePresenter;
 import com.galaxy_light.gzh.familyline.ui.view.FriendCircleView;
+import com.galaxy_light.gzh.familyline.utils.DensityUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +28,7 @@ public class FriendCircleActivity extends AppCompatActivity implements FriendCir
     Toolbar toolbarFriendCircle;
     @BindView(R.id.rv_friendCircle)
     RecyclerView rvFriendCircle;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class FriendCircleActivity extends AppCompatActivity implements FriendCir
     @Override
     protected void onStart() {
         super.onStart();
-        new FriendCirclePresenter(this).requestData();
+        new FriendCirclePresenter(this, DensityUtil.getScreenWidth(this)).requestData();
     }
 
     private void initToolbar() {
@@ -61,6 +64,17 @@ public class FriendCircleActivity extends AppCompatActivity implements FriendCir
     @OnClick(R.id.fab_write)
     public void write() {
         startActivity(new Intent(this, PublishActivity.class));
+    }
+
+    @Override
+    public void showLoading() {
+        loadingDialog = new LoadingDialog();
+        loadingDialog.show(getSupportFragmentManager(), "loadingDialog");
+    }
+
+    @Override
+    public void hideLoading() {
+        loadingDialog.dismiss();
     }
 
     @Override

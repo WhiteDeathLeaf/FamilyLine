@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="loading_color">#169fef</color>
+    <color name="loading_color_dark">#168fff</color>
     <color name="colorPrimary">#169fef</color>
-    <color name="colorPrimaryDark">#168fff</color>
+    <color name="colorPrimaryDark">#169fef</color>
     <color name="colorAccent">#169eee</color>
     <color name="toolbar">#169fef</color>
     <color name="white">#ffffff</color>

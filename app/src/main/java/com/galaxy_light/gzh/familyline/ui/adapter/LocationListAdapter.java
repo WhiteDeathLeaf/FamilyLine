@@ -4,9 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.galaxy_light.gzh.familyline.R;
 
 import java.util.List;
@@ -15,27 +14,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 图片Adapter
- * Created by gzh on 2017/9/30.
+ * 定位列表Adapter
+ * Created by gzh on 2017-11-7.
  */
 
-class ImageAdapter extends BaseAdapter {
-    private List<String> images;
-    private int size;
+public class LocationListAdapter extends BaseAdapter {
+    private List<String> list;
 
-    ImageAdapter(List<String> images, int size) {
-        this.images = images;
-        this.size = size / 3;
+    public LocationListAdapter(List<String> list) {
+        this.list = list;
     }
 
     @Override
     public int getCount() {
-        return images.size();
+        return list.size();
     }
 
     @Override
     public String getItem(int position) {
-        return images.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -47,28 +44,22 @@ class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location_list, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        ViewGroup.LayoutParams params = holder.iv_image.getLayoutParams();
-        params.width = size;
-        params.height = size;
-        holder.iv_image.setLayoutParams(params);
-        Glide.with(parent.getContext()).load(images.get(position)).into(holder.iv_image);
+        holder.tv_location.setText(list.get(position));
         return convertView;
     }
 
     static class ViewHolder {
-        @BindView(R.id.iv_image)
-        ImageView iv_image;
+        @BindView(R.id.tv_location_list)
+        TextView tv_location;
 
-        ViewHolder(View itemView) {
-            ButterKnife.bind(this, itemView);
+        ViewHolder(View convertView) {
+            ButterKnife.bind(this, convertView);
         }
     }
-
-
 }

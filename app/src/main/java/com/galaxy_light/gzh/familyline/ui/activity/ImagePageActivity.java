@@ -29,11 +29,13 @@ public class ImagePageActivity extends AppCompatActivity implements ImagePageVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_page);
         ButterKnife.bind(this);
+        int index = getIntent().getIntExtra("index", 0);
         ArrayList<String> list = (ArrayList<String>) getIntent().getSerializableExtra("imageUrls");
         ImagePagePresenter imagePagePresenter = new ImagePagePresenter(this);
         indicators = imagePagePresenter.initData(this, list, llImageIndicator);
         vpImage.addOnPageChangeListener(pageChangeListener);
-        vpImage.setCurrentItem(getIntent().getIntExtra("index", 0), false);
+        vpImage.setCurrentItem(index, false);
+        indicators.get(index).setAlpha(1.0f);
     }
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {

@@ -88,9 +88,7 @@ public class MineFragment extends Fragment implements MineView, EasyPermissions.
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-//            new AppSettingsDialog.Builder(this).build().show();
-        }
+
     }
 
     @Override

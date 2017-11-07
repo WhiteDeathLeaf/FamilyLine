@@ -108,7 +108,7 @@ public class LoadingView extends View {
         }
 
         if (colorList.size() == 0) {
-            mColors = new int[]{ContextCompat.getColor(getContext(), R.color.colorPrimaryDark), ContextCompat.getColor(getContext(), R.color.colorPrimary)};
+            mColors = new int[]{ContextCompat.getColor(getContext(), R.color.loading_color_dark), ContextCompat.getColor(getContext(), R.color.loading_color)};
         } else {
             mColors = new int[colorList.size()];
             for (int i = 0; i < colorList.size(); i++) {

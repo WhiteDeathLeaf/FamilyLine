@@ -49,7 +49,7 @@
         android:textSize="@dimen/sp_16"
         android:drawableStart="@drawable/location"
         android:drawablePadding="@dimen/dp_4"
-        android:text="位置"/>
+        android:text="@string/location"/>
     <Button
         android:id="@+id/btn_publish"
         android:layout_width="match_parent"

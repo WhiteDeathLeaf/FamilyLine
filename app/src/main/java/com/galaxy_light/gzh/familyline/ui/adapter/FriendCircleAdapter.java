@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
@@ -28,8 +27,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, BaseViewHolder> {
-    public FriendCircleAdapter(@LayoutRes int layoutResId, @Nullable List<FriendCircleBean> data) {
+    private int size;
+
+    public FriendCircleAdapter(@LayoutRes int layoutResId, @Nullable List<FriendCircleBean> data, int size) {
         super(layoutResId, data);
+        this.size = size;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class FriendCircleAdapter extends BaseQuickAdapter<FriendCircleBean, Base
             gridView.setNumColumns(3);
             gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
             gridView.setGravity(Gravity.CENTER);
-            gridView.setAdapter(new ImageAdapter(item.getImages()));
+            gridView.setAdapter(new ImageAdapter(item.getImages(), size));
             parent.addView(gridView);
             gridView.setOnItemClickListener((parent1, view, position, id) -> listener.photoClick(item.getImages(), position));
         }
