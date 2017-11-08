@@ -71,10 +71,14 @@ public class MessageDetailPresenter {
                                 }
                             }
                             adapter.notifyDataSetChanged();
-                            messageDetailView.moveToLast(adapter.getData().size() - 1);
+                            messageDetailView.moveToLast(getLastPosition());
                         }
                     }
                 });
+    }
+
+    public int getLastPosition() {
+        return adapter.getData().size() - 1;
     }
 
     public void sendMessage(String username, String id, String content) {
@@ -89,7 +93,7 @@ public class MessageDetailPresenter {
                                     message.setText(content);
                                     adapter.addData(new MessageDetailBean(content, MessageDetailBean.MINE));
                                     adapter.notifyDataSetChanged();
-                                    messageDetailView.moveToLast(adapter.getData().size() - 1);
+                                    messageDetailView.moveToLast(getLastPosition());
                                     avimConversation.sendMessage(message, new AVIMConversationCallback() {
                                         @Override
                                         public void done(AVIMException e) {
@@ -107,7 +111,7 @@ public class MessageDetailPresenter {
     public void acceptMessage(String content) {
         adapter.addData(new MessageDetailBean(content, MessageDetailBean.OTHER));
         adapter.notifyDataSetChanged();
-        messageDetailView.moveToLast(adapter.getData().size() - 1);
+        messageDetailView.moveToLast(getLastPosition());
     }
 
     public void initEmoji(Context context) {

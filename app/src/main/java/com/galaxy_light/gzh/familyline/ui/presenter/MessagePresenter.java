@@ -1,6 +1,7 @@
 package com.galaxy_light.gzh.familyline.ui.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -21,7 +22,6 @@ import com.galaxy_light.gzh.familyline.utils.PrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 消息页Presenter
@@ -34,19 +34,21 @@ public class MessagePresenter {
     private AVQuery<FamilyLineUser> query;
     private String userId;
     private String otherId;
+    private List<MessageBean> messageBeen;
 
     public MessagePresenter(MessageView messageView) {
         this.messageView = messageView;
         query = new AVQuery<>("_User");
         userId = FamilyLineUser.getCurrentUser().getObjectId();
-        List<MessageBean> messageBeen = new ArrayList<>();
+        messageBeen = new ArrayList<>();
         adapter = new MessageAdapter(R.layout.item_home_message, messageBeen);
         this.messageView.setAdapter(adapter);
     }
 
     public void requestMessageData() {
+        messageBeen.clear();
         messageView.showLoading();
-        Set<String> allId = PrefManager.getAllId();
+        String[] allId = PrefManager.getAllId();
         if (allId != null) {
             for (String id : allId) {
                 AVIMConversation conversation = AVIMClient.getInstance(userId).getConversation(id);
@@ -63,7 +65,7 @@ public class MessagePresenter {
                     @Override
                     public void done(FamilyLineUser familyLineUser, AVException e) {
                         String avatar = familyLineUser.getAvatar().getUrl();
-                        adapter.addData(new MessageBean(avatar, username, otherId, lastMessage, lastTime, id));
+                        messageBeen.add(0, new MessageBean(avatar, username, otherId, lastMessage, lastTime, id));
                         adapter.notifyDataSetChanged();
                     }
                 });

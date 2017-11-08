@@ -190,6 +190,11 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     tetMessageInput.setVisibility(View.VISIBLE);
                     btnMessageInput.setVisibility(View.GONE);
                     tetMessageInput.requestFocus();
+                    InputMethodManager m=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (m != null) {
+                        m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                    moveToLast(presenter.getLastPosition());
                 }
                 break;
             case R.id.cb_et_input:
@@ -203,8 +208,13 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                     }
                 } else {
                     flEmoji.setVisibility(View.GONE);
+                    InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (m != null) {
+                        m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
                 }
                 tetMessageInput.requestFocus();
+                moveToLast(presenter.getLastPosition());
                 break;
             case R.id.cb_more:
                 if (isCheck) {
@@ -215,6 +225,7 @@ public class MessageDetailActivity extends AppCompatActivity implements MessageD
                         ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
                                 .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     }
+                    moveToLast(presenter.getLastPosition());
                 } else {
                     messageDetailBottom.setVisibility(View.GONE);
                 }

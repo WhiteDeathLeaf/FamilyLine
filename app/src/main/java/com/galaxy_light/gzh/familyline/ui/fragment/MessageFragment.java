@@ -62,9 +62,9 @@ public class MessageFragment extends Fragment implements MessageView {
     public void onStart() {
         super.onStart();
         AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, new MessageFragmentHandler(presenter,getContext()));
-        if (((MessageAdapter) (rvMessage.getAdapter())).getData().size() <= 0) {
+//        if (((MessageAdapter) (rvMessage.getAdapter())).getData().size() <= 0) {
             presenter.requestMessageData();
-        }
+//        }
     }
 
     @Override
